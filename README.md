@@ -9,6 +9,7 @@ Quel acteur de l'app vont avoir besoin de faire quoi :
 - Utilisateur veut qu'on lui propose des idées aléatoires afin de l'aider à créer son scénario
 - Utilisateur veut pouvoir trier les éléments qu'ils recherchent
 - Utilisateur veut pouvoir limiter sa recherche à un cadre spécifique (par exemple, lieu = marais)
+- Admin peut créer nouvelles Idea!
 
 ## Elements à intégrer (appelée Idea!)
 
@@ -21,9 +22,9 @@ Quel acteur de l'app vont avoir besoin de faire quoi :
 - Type
 - img
 
-### Personnage
+### Personnages
 
-- Nom
+- Nom (créer aléatoirement ?)
 - Type (méchant, gentil, monstre)
 - Trois adjectifs descriptifs
 - But (psychologie)

@@ -19,7 +19,30 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import { getRandomPerso } from 'App/Controllers/Http/PersonnageController';
+import {getRandomIntrigue} from 'App/Controllers/Http/IntrigueController';
+
 
 Route.get('/', async () => {
-  return { hello: 'world' }
+
+  let perso = await getRandomPerso();
+  let intrigue = await getRandomIntrigue();
+
+  const res = {
+    perso : perso,
+    intrigue : intrigue
+  }
+
+  return res;
 })
+
+
+//Intrigues
+Route.get('/intrigue', 'IntrigueController.index');
+Route.get('/intrigue/:id', 'IntrigueController.show');
+
+
+//Personnages
+Route.get('/personnage', 'PersonnageController.index');
+Route.get('/personnage/:id', 'PersonnageController.show');
+
