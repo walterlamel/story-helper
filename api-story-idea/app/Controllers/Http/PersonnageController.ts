@@ -16,6 +16,7 @@ export default class PersonnageController {
 }
 
 
-export function getRandomPerso(){
-    return Database.rawQuery('SELECT * FROM personnages ORDER BY RANDOM() LIMIT 1')
+export async function getRandomPerso(){
+    let res = await Database.rawQuery('SELECT * FROM personnages ORDER BY RANDOM() LIMIT 1')
+    return res[0];
 }

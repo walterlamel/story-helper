@@ -9,7 +9,10 @@ Quel acteur de l'app vont avoir besoin de faire quoi :
 - Utilisateur veut qu'on lui propose des idées aléatoires afin de l'aider à créer son scénario
 - Utilisateur veut pouvoir trier les éléments qu'ils recherchent
 - Utilisateur veut pouvoir limiter sa recherche à un cadre spécifique (par exemple, lieu = marais)
+- Utilisateur peut ajouter de nouvelles idées
+- Admin peut sélectionner les nouvelles idées avant l'ajout réel
 - Admin peut créer nouvelles Idea!
+
 
 ## Elements à intégrer (appelée Idea!)
 
@@ -48,3 +51,4 @@ Quel acteur de l'app vont avoir besoin de faire quoi :
 
 Sur React.
 API des Idea! avec ADONIS
+Récupéré les images via API Pinterest ?

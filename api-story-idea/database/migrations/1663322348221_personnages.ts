@@ -11,6 +11,7 @@ export default class extends BaseSchema {
       table.string('type').notNullable()
       table.string('adjectifs')
       table.string('psychologie')
+      table.string('img')
 
       
 //- Lié à un lieu

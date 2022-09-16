@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       table.string('name').notNullable().unique()
       table.string('desc').notNullable()
       table.string('detail')
+      table.string('img')
 
 
       table.timestamp('created_at', { useTz: true })

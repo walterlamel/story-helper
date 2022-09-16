@@ -24,13 +24,21 @@ export default class IntrigueController {
     //avec paramere "place" : cherche le nom de la place
     public chooseByPlace(place){
     
-        return Intrigue.query().preload('places').whereHas('places', (Place) => {
-        Place.whereLike('places.name', place)
-        })
+        return getRandomIntrigue(place)
     }
 }
 
-export async function getRandomIntrigue(){
-    const intrigues = await Intrigue.query().preload('places');
+
+//choisi de manière aléatoire mais s'adapte à la place si elle est indiquée
+export async function getRandomIntrigue(place = false){
+    let intrigues;
+    if(place){
+        intrigues = await Intrigue.query().preload('places').whereHas('places', (Place) => {
+            Place.whereLike('places.name', place)
+            })
+    } else {
+        intrigues = await Intrigue.query().preload('places');
+    }
+    
     return intrigues[Math.floor(Math.random() * intrigues.length)];
 }
