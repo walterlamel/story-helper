@@ -21,6 +21,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 import { getRandomPerso } from 'App/Controllers/Http/PersonnageController';
 import {getRandomIntrigue} from 'App/Controllers/Http/IntrigueController';
+import {getRandomPlace} from 'App/Controllers/Http/PlaceController';
 import { HttpContext } from '@adonisjs/core/build/standalone';
 import Intrigue from 'App/Models/Intrigue';
 import Personnage from 'App/Models/Personnage';

@@ -1,12 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import Database from '@ioc:Adonis/Lucid/Database';
 import Personnage from 'App/Models/Personnage';
-import Logger from '@ioc:Adonis/Core/Logger';
+
 
 export default class PersonnageController {
 
-    public index(){
-        return getRandomPerso()
+    public async index(){
+        return await getRandomPerso()
         return Personnage.all()
     }
 
@@ -26,6 +26,6 @@ export default class PersonnageController {
 
 
 export async function getRandomPerso(){
-    let res = await Database.rawQuery('SELECT * FROM personnages ORDER BY RANDOM() LIMIT 1')
-    return res[0] ?? [];
+    let res = await Database.rawQuery('SELECT * FROM personnages ORDER BY RAND() LIMIT 1')
+    return res[0][0] ?? [];
 }

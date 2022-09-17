@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 
 export default class extends BaseSeeder {
   public async run () {
-    const numberFalsePerso = 20;
+    const numberFalsePerso = 1;
 
 
     for (let index = 0; index < numberFalsePerso; index++) {

@@ -2,12 +2,12 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import Database from '@ioc:Adonis/Lucid/Database';
 import Place from 'App/Models/Place';
 
-import Logger from '@ioc:Adonis/Core/Logger';
+
 
 export default class PlaceController {
 
-    public index(){
-        return getRandomPlace()
+    public async index(){
+        return await getRandomPlace()
         return Place.all()
     }
 
@@ -37,8 +37,8 @@ export async function getRandomPlace(place = false){
         return res[0];
     } else {
 
-        let res = await Database.rawQuery('SELECT * FROM places ORDER BY RANDOM() LIMIT 1');
-        return res[0];
+        let res = await Database.rawQuery('SELECT * FROM places ORDER BY RAND() LIMIT 1');
+        return res[0][0] ?? [];
     }
 
 }
