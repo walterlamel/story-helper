@@ -9,7 +9,8 @@ export default class extends BaseSchema {
 
       table.string('name').notNullable().unique()
       table.string('desc').notNullable()
-      table.string('img').defaultTo()
+      table.string('img')
+      table.boolean('is_active').defaultTo(false)
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

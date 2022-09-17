@@ -11,8 +11,9 @@ export default class extends BaseSeeder {
       await Personnage.create({
         name : faker.name.fullName(),
         type : faker.helpers.arrayElement(['Méchant', 'Noble', 'Roturier', 'Monstre', 'Nécromant', 'Soldat']),
-        adjectifs: faker.random.words(4),
-        psychologie: faker.lorem.sentences(3)
+        desc: faker.lorem.sentences(3),
+        img : faker.image.people(),
+        isActive: true
       })
       
     }

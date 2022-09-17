@@ -8,10 +8,10 @@ export default class extends BaseSchema {
       table.increments('id')
 
       table.string('name').notNullable()
-      table.string('type').notNullable()
-      table.string('adjectifs')
-      table.string('psychologie')
+      table.string('type')
+      table.string('desc').notNullable()
       table.string('img')
+      table.boolean('is_active').defaultTo(false)
 
       
 //- Lié à un lieu

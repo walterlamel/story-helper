@@ -1,0 +1,159 @@
+.container-popup-add{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(0, 0, 0,0.3);
+    top: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-add{
+    background-color: $main-fond;
+    padding: 2em;
+    max-width: 70vw;
+    border: 1px solid $second-color;
+    box-shadow: 0 0 10px black;
+
+    h5{
+        font-family: $title-font;
+        font-size: 1.5em;
+        opacity: 0.8;
+        margin-bottom: 2em;
+    }
+
+    form{
+        display: flex;
+        gap: 1em;
+
+        .contain-img{
+            overflow: hidden;
+            //width: 30%;
+            width: 250px;
+            height: 380px;
+
+            img{
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .contain-form{
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
+
+
+    .contain-radio{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        text-align: center;
+        border-bottom: 1px solid $second-color;
+        padding-bottom: 10px;
+        margin-bottom: 2em;
+
+        label{
+            width: 100%;
+            display: block;
+            padding: 1em;
+            border: 0;
+            margin: 0;
+            opacity: 0.3;
+            cursor: pointer;
+
+            input{
+                display: none;
+            }
+        }
+
+        label.intrigue{
+            background-color: $color-intrigue;
+        }
+        label.place{
+            background-color: $color-place;
+        }label.personnage{
+            background-color: $color-personnage;
+        }
+
+        label.select{
+            opacity: 1;
+        }
+    }
+
+    label{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 2fr ;
+        margin: 10px 0;
+        vertical-align: center;
+        position: relative;
+
+        p{
+            padding-right: 5px;
+            width: 100%;
+            text-align: right;
+            opacity: 0.7;
+            font-size: 0.8em;
+        }
+    }
+
+    .label-desc{
+        height: 100%;
+    }
+
+    .carac{
+        font-size: 0.5em;
+        text-align: right;
+        width: 100%;
+        position: absolute;
+        bottom: -15px;
+    }
+
+    input,
+    textarea{
+        border: 1px solid $second-color;
+        width: 100%;
+        background-color: $main-fond-light;
+        padding: 5px;
+        color: white;
+        font-family: $text-font;
+        font-size: 0.7em;
+    }
+
+    .error{
+        border: 1px solid $error-color;
+    }
+
+    .message-retour{
+        color:$error-color ;
+        font-size: 0.7em;
+        text-align: right;
+    }
+
+
+
+
+    .contain-contenu{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+    }
+
+    .btn-submit{
+        margin-top:3em;
+        font-family: $text-font;
+        font-size: 1em;
+        cursor: pointer;
+        width: fit-content;
+        padding: 1em 2em;
+        align-self: center;
+    }
+}

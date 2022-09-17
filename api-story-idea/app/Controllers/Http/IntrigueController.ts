@@ -9,10 +9,10 @@ export default class IntrigueController {
         const queryData = request.get();
         const place = queryData.place;
         if(place){
-            return this.chooseByPlace(place);
+            return getRandomIntrigue(place);
         }
-        
-        return Intrigue.query().preload('places');
+
+        return getRandomIntrigue();
     }
 
     //avec un id : montre l'intrigue demandée
@@ -20,16 +20,31 @@ export default class IntrigueController {
         return Intrigue.query().preload('places').where('id', params.id);
     }
 
-
-    //avec paramere "place" : cherche le nom de la place
-    public chooseByPlace(place){
-    
-        return getRandomIntrigue(place)
+    public showAll(){
+        return Intrigue.query().preload('places');
     }
+
+    //create un nouvel element
+    public async create({request}:HttpContextContract){
+        const i = request.all();
+        await Intrigue.create(i);
+        const newadd = await Intrigue.query().where('name', i.name);
+        return newadd;
+    }
+
+    public async edit({params, request}:HttpContextContract){
+        const intrigue = await Intrigue.findOrFail(params.id);
+        const i = request.all();
+        await intrigue.merge(i)
+        .save();
+        return true;
+    }
+
 }
 
 
 //choisi de manière aléatoire mais s'adapte à la place si elle est indiquée
+    //avec paramere "place" : cherche le nom de la place
 export async function getRandomIntrigue(place = false){
     let intrigues;
     if(place){

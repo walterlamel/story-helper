@@ -2,6 +2,8 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import Database from '@ioc:Adonis/Lucid/Database';
 import Place from 'App/Models/Place';
 
+import Logger from '@ioc:Adonis/Core/Logger';
+
 export default class PlaceController {
 
     public index(){
@@ -11,6 +13,19 @@ export default class PlaceController {
 
     public show({params}:HttpContextContract){
         return Place.query().where('id', params.id)
+    }
+
+    
+    public showAll(){
+        return Place.query();
+    }
+
+    public async edit({params, request}:HttpContextContract){
+        const place = await Place.findOrFail(params.id);
+        const i = request.all();
+        await place.merge(i)
+        .save();
+        return true;
     }
 
 }

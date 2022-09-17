@@ -14,6 +14,12 @@ export default class Intrigue extends BaseModel {
 
   @column()
   public detail: string
+  
+  @column()
+  public img: string
+
+  @column()
+  public isActive: boolean
 
   
   @manyToMany(() => Place, {

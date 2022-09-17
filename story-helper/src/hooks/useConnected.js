@@ -1,0 +1,3 @@
+const useConnected = () => {
+       return { isConnected };
+};

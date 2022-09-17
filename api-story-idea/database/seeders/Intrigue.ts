@@ -21,7 +21,9 @@ export default class extends BaseSeeder {
     for await (const name of names) {
       creating.push(
         { name : name,
-          desc : faker.lorem.paragraph()
+          desc : faker.lorem.paragraph(),
+          img : faker.image.nature(),
+          isActive: true
         }
         )
     }

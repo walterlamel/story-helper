@@ -13,10 +13,13 @@ export default class Personnage extends BaseModel {
   public type: string
 
   @column()
-  public adjectifs: string
+  public desc: string
+  
+  @column()
+  public img: string
 
   @column()
-  public psychologie: string
+  public isActive: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -11,6 +11,7 @@ export default class extends BaseSchema {
       table.string('desc').notNullable()
       table.string('detail')
       table.string('img')
+      table.boolean('is_active').defaultTo(false)
 
 
       table.timestamp('created_at', { useTz: true })

@@ -9,9 +9,14 @@ export default class Place extends BaseModel {
   @column()
   public name: string
 
-  
   @column()
   public desc: string
+  
+  @column()
+  public img: string
+
+  @column()
+  public isActive: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
