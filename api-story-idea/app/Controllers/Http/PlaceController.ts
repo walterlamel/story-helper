@@ -37,8 +37,8 @@ export async function getRandomPlace(place = false){
         return res[0];
     } else {
 
-        let res = await Database.rawQuery('SELECT * FROM places ORDER BY RAND() LIMIT 1');
-        return res[0][0] ?? [];
+        let res = await Database.rawQuery('SELECT * FROM places ORDER BY RANDOM() LIMIT 1');
+        return res[0] ?? [];
     }
 
 }

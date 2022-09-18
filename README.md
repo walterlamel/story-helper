@@ -13,7 +13,6 @@ Quel acteur de l'app vont avoir besoin de faire quoi :
 - Admin peut sélectionner les nouvelles idées avant l'ajout réel
 - Admin peut créer nouvelles Idea!
 
-
 ## Elements à intégrer (appelée Idea!)
 
 - Lieu, Intrigue (mission), Personnage, Objet
@@ -52,3 +51,9 @@ Quel acteur de l'app vont avoir besoin de faire quoi :
 Sur React.
 API des Idea! avec ADONIS
 Récupéré les images via API Pinterest ?
+
+# A faire
+
+- Version mobile
+- Protéger l'API
+- Bloquer l'admin
