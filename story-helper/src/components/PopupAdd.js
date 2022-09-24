@@ -3,18 +3,50 @@ import React, { useEffect, useState } from "react";
 import defaultPlace from "../assets/img/default-place.jpg";
 import defaultIntrigue from "../assets/img/default-intrigue.jpg";
 import defaultPerso from "../assets/img/default-personnage.jpg";
-import { createItem } from "../hooks/api";
+import useGetTypes from "../hooks/useGetTypes";
 
-const MaxCaract = 300;
+const MaxCaract = 400;
+const texts = {
+       creater: {
+              titre: "Proposer une nouvelle idée",
+              bouton: "Proposer",
+              successresponse: "Votre proposition a bien été envoyée.",
+       },
+       modifier: {
+              titre: "Modifier cette idée",
+              bouton: "Modifier",
+              successresponse: "Votre proposition a bien été corrigée.",
+       },
+};
 
-const PopupAdd = ({ open, setPopupOpen }) => {
+const PopupAdd = ({
+       modifier = false,
+       currentIdea = false,
+       open,
+       setPopupOpen,
+       setRefresh,
+}) => {
        const [type, setType] = useState("intrigue");
+       const [name, setName] = useState("");
        const [desc, setDesc] = useState("");
-       const [caractRestant, setCaractRestant] = useState(MaxCaract);
        const [img, setImg] = useState(false);
+       const [is_active, setIsActive] = useState(false);
+       const [caractRestant, setCaractRestant] = useState(MaxCaract);
        const [isSubmit, setIsSubmit] = useState(false);
        const [error, setError] = useState(false);
        const [inputsError, setInputsError] = useState([]);
+
+       useEffect(() => {
+              if (currentIdea) {
+                     setType(currentIdea.type.name ?? "");
+                     setName(currentIdea.name ?? "");
+                     setDesc(currentIdea.desc ?? "");
+                     setImg(currentIdea.img ?? "");
+                     setInputsError([]);
+                     setError(false);
+                     setIsSubmit(false);
+              }
+       }, [currentIdea]);
 
        useEffect(() => {
               setCaractRestant(MaxCaract - desc.length);
@@ -26,6 +58,8 @@ const PopupAdd = ({ open, setPopupOpen }) => {
                             setPopupOpen(false);
                             setIsSubmit(false);
                             setCaractRestant(MaxCaract);
+                            setInputsError([]);
+                            setError(false);
                      }, 900);
               }
        }, [isSubmit]);
@@ -50,26 +84,34 @@ const PopupAdd = ({ open, setPopupOpen }) => {
        }
 
        async function handleSubmit(e) {
+              console.log(e.nativeEvent.submitter);
               e.preventDefault();
+              //si pour modifier, on change l'url
+              let url = !modifier
+                     ? process.env.REACT_APP_URL_API + "create"
+                     : process.env.REACT_APP_URL_API + currentIdea.id;
               const form = e.target;
               var formData = new FormData(form);
 
+              //on prepare les éléments à envoyer
               const requestOptions = {
-                     method: "POST",
+                     method: !modifier ? "POST" : "PUT",
                      headers: { "Content-Type": "application/json" },
                      body: JSON.stringify({
-                            type: type,
+                            typeId: formData.get("type"),
                             name: formData.get("name"),
                             desc: desc,
                             img: img,
+                            is_active: is_active,
                      }),
               };
 
-              fetch(process.env.REACT_APP_URL_API + "create", requestOptions)
+              //on envoie
+              fetch(url, requestOptions)
                      .then((response) => response.json())
                      .then(
                             (data) => {
-                                   console.log(data);
+                                   //console.log(data);
                                    if (data.errors) {
                                           let inps = [];
                                           data.errors.forEach((err) => {
@@ -79,6 +121,7 @@ const PopupAdd = ({ open, setPopupOpen }) => {
                                           setError(data.errors[0].title);
                                    } else {
                                           setIsSubmit(true);
+                                          setRefresh((prev) => prev + 1);
                                    }
                             },
                             (error) => {
@@ -94,6 +137,29 @@ const PopupAdd = ({ open, setPopupOpen }) => {
               setError(resError.text);
               setInputsError(resError.input);
               console.log(resError);
+       }
+
+       async function getFakeName() {
+              const requestOptions = {
+                     method: "GET",
+                     headers: {
+                            "Content-Type": "application/json",
+                     },
+              };
+
+              return await fetch(
+                     process.env.REACT_APP_URL_FAKENAME,
+                     requestOptions,
+              )
+                     .then((res) => res.json())
+                     .then(
+                            (data) => {
+                                   console.log(data);
+                            },
+                            (error) => {
+                                   console.log(error);
+                            },
+                     );
        }
 
        return (
@@ -120,9 +186,9 @@ const PopupAdd = ({ open, setPopupOpen }) => {
                                                  x
                                           </div>
                                           <h5>
-                                                 Proposer
-                                                 <br />
-                                                 une nouvelle idée
+                                                 {!modifier
+                                                        ? texts.creater.titre
+                                                        : texts.modifier.titre}
                                           </h5>
                                           {!isSubmit ? (
                                                  <>
@@ -141,95 +207,23 @@ const PopupAdd = ({ open, setPopupOpen }) => {
                                                                       />
                                                                </div>
                                                                <div className="contain-form">
-                                                                      <div className="contain-radio">
-                                                                             <label
-                                                                                    htmlFor="intrigue"
-                                                                                    className={
-                                                                                           "intrigue " +
-                                                                                           (type ===
-                                                                                           "intrigue"
-                                                                                                  ? "select"
-                                                                                                  : "")
-                                                                                    }
-                                                                                    onClick={(
-                                                                                           e,
-                                                                                    ) =>
-                                                                                           changeType(
-                                                                                                  "intrigue",
-                                                                                           )
-                                                                                    }
-                                                                             >
-                                                                                    <input
-                                                                                           type="radio"
-                                                                                           name="intrigue"
-                                                                                           id="intrigue"
-                                                                                           checked={
-                                                                                                  type ===
-                                                                                                  "intrigue"
-                                                                                           }
-                                                                                    />
-                                                                                    Intrigue
-                                                                             </label>
-                                                                             <label
-                                                                                    htmlFor="place"
-                                                                                    className={
-                                                                                           "place " +
-                                                                                           (type ===
-                                                                                           "place"
-                                                                                                  ? "select"
-                                                                                                  : "")
-                                                                                    }
-                                                                                    onClick={(
-                                                                                           e,
-                                                                                    ) =>
-                                                                                           changeType(
-                                                                                                  "place",
-                                                                                           )
-                                                                                    }
-                                                                             >
-                                                                                    <input
-                                                                                           type="radio"
-                                                                                           name="place"
-                                                                                           id="place"
-                                                                                           checked={
-                                                                                                  type ===
-                                                                                                  "place"
-                                                                                           }
-                                                                                    />
-                                                                                    Place
-                                                                             </label>
-                                                                             <label
-                                                                                    htmlFor="personnage"
-                                                                                    className={
-                                                                                           "personnage " +
-                                                                                           (type ===
-                                                                                           "personnage"
-                                                                                                  ? "select"
-                                                                                                  : "")
-                                                                                    }
-                                                                                    onClick={(
-                                                                                           e,
-                                                                                    ) =>
-                                                                                           changeType(
-                                                                                                  "personnage",
-                                                                                           )
-                                                                                    }
-                                                                             >
-                                                                                    <input
-                                                                                           type="radio"
-                                                                                           name="personnage"
-                                                                                           id="personnage"
-                                                                                           checked={
-                                                                                                  type ===
-                                                                                                  "personnage"
-                                                                                           }
-                                                                                    />
-                                                                                    Personnage
-                                                                             </label>
-                                                                      </div>
+                                                                      <Onglets
+                                                                             changeType={
+                                                                                    changeType
+                                                                             }
+                                                                             currentType={
+                                                                                    type
+                                                                             }
+                                                                      />
                                                                       <div className="contain-contenu">
                                                                              <label htmlFor="name">
-                                                                                    <p>
+                                                                                    <p
+                                                                                           onClick={(
+                                                                                                  e,
+                                                                                           ) =>
+                                                                                                  getFakeName()
+                                                                                           }
+                                                                                    >
                                                                                            Nom
                                                                                     </p>
                                                                                     <input
@@ -242,6 +236,18 @@ const PopupAdd = ({ open, setPopupOpen }) => {
                                                                                                   )
                                                                                                          ? "error"
                                                                                                          : ""
+                                                                                           }
+                                                                                           onInput={(
+                                                                                                  e,
+                                                                                           ) =>
+                                                                                                  setName(
+                                                                                                         e
+                                                                                                                .target
+                                                                                                                .value,
+                                                                                                  )
+                                                                                           }
+                                                                                           value={
+                                                                                                  name
                                                                                            }
                                                                                     />
                                                                              </label>
@@ -279,7 +285,14 @@ const PopupAdd = ({ open, setPopupOpen }) => {
                                                                                                          );
                                                                                                   }
                                                                                            }}
-                                                                                    ></textarea>
+                                                                                           value={
+                                                                                                  desc
+                                                                                           }
+                                                                                    >
+                                                                                           {
+                                                                                                  desc
+                                                                                           }
+                                                                                    </textarea>
                                                                                     <div className="carac">
                                                                                            {
                                                                                                   caractRestant
@@ -305,6 +318,9 @@ const PopupAdd = ({ open, setPopupOpen }) => {
                                                                                                                 .value,
                                                                                                   )
                                                                                            }
+                                                                                           value={
+                                                                                                  img
+                                                                                           }
                                                                                     />
                                                                              </label>
                                                                       </div>
@@ -313,18 +329,63 @@ const PopupAdd = ({ open, setPopupOpen }) => {
                                                                                     error
                                                                              }
                                                                       </div>
-                                                                      <input
-                                                                             className="btn-submit"
-                                                                             type="submit"
-                                                                             value="Proposer"
-                                                                      />
+                                                                      <div className="contain-btns">
+                                                                             <input
+                                                                                    className="btn-submit"
+                                                                                    type="submit"
+                                                                                    value={
+                                                                                           !modifier
+                                                                                                  ? texts
+                                                                                                           .creater
+                                                                                                           .bouton
+                                                                                                  : texts
+                                                                                                           .modifier
+                                                                                                           .bouton
+                                                                                    }
+                                                                             />
+
+                                                                             {modifier && (
+                                                                                    <>
+                                                                                           {is_active ? (
+                                                                                                  <input
+                                                                                                         className="btn-submit"
+                                                                                                         type="submit"
+                                                                                                         value="Désapprouver"
+                                                                                                         onClick={(
+                                                                                                                e,
+                                                                                                         ) =>
+                                                                                                                setIsActive(
+                                                                                                                       false,
+                                                                                                                )
+                                                                                                         }
+                                                                                                  />
+                                                                                           ) : (
+                                                                                                  <input
+                                                                                                         className="btn-submit"
+                                                                                                         type="submit"
+                                                                                                         value="Approuver"
+                                                                                                         onClick={(
+                                                                                                                e,
+                                                                                                         ) =>
+                                                                                                                setIsActive(
+                                                                                                                       true,
+                                                                                                                )
+                                                                                                         }
+                                                                                                  />
+                                                                                           )}
+                                                                                    </>
+                                                                             )}
+                                                                      </div>
                                                                </div>
                                                         </form>
                                                  </>
                                           ) : (
                                                  <div className="response">
-                                                        Votre proposition a bien
-                                                        été envoyée.
+                                                        {!modifier
+                                                               ? texts.creater
+                                                                        .successresponse
+                                                               : texts.modifier
+                                                                        .successresponse}
                                                  </div>
                                           )}
                                    </div>
@@ -335,3 +396,43 @@ const PopupAdd = ({ open, setPopupOpen }) => {
 };
 
 export default PopupAdd;
+
+const Onglets = ({ changeType, currentType }) => {
+       const { types } = useGetTypes();
+
+       return (
+              <div className="contain-radio">
+                     {types?.map((type, key) => (
+                            <OngletType
+                                   key={key}
+                                   type={type}
+                                   changeType={changeType}
+                                   currentType={currentType}
+                            />
+                     ))}
+              </div>
+       );
+};
+
+const OngletType = ({ type, currentType, changeType }) => {
+       return (
+              <label
+                     htmlFor={type.name}
+                     className={
+                            type.name +
+                            (currentType === type.name ? " select" : "")
+                     }
+                     onClick={(e) => changeType(type.name)}
+              >
+                     <input
+                            type="radio"
+                            name="type"
+                            id={type.name}
+                            checked={currentType === type.name}
+                            value={type.id}
+                            onChange={(e) => changeType(type.name)}
+                     />
+                     {type.visible_name}
+              </label>
+       );
+};

@@ -18,20 +18,20 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
-import { getRandomPerso } from 'App/Controllers/Http/PersonnageController';
-import {getRandomIntrigue} from 'App/Controllers/Http/IntrigueController';
-import {getRandomPlace} from 'App/Controllers/Http/PlaceController';
-import { HttpContext } from '@adonisjs/core/build/standalone';
-import Intrigue from 'App/Models/Intrigue';
-import Personnage from 'App/Models/Personnage';
-import Place from 'App/Models/Place';
-import Database from '@ioc:Adonis/Lucid/Database';
-import { schema, validator, rules } from '@ioc:Adonis/Core/Validator';
-
+import Route from '@ioc:Adonis/Core/Route';
 //import Logger from '@ioc:Adonis/Core/Logger';
 
+Route.get('/', 'ItemController.index'); //affiche 3 res random
+Route.get('/type', 'TypeController.index'); //affiche 3 res random
+Route.get('/all/', 'ItemController.getall'); //affiche tous les resultats
+Route.get('/all/:type', 'ItemController.getall'); //affiche tous les resultats selon le type
+Route.post('/create', 'ItemController.create'); //creer un nouvel item
+Route.get('/:id', 'ItemController.get').where('id', /^[0-9]+$/); // affiche le resultat selon l'id
+Route.put('/:id', 'ItemController.update').where('id', /^[0-9]+$/); // modifie le resultat selon l'id
+Route.delete('/:id', 'ItemController.delete').where('id', /^[0-9]+$/); // supprime le resultat selon l'id
+Route.get('/:type', 'ItemController.index'); //affiche un resultat random selon le type
 
+/*
 // rend un lieu, un perso et une intrigue aléatoire. Si place est indiqué en url, s'y adapte
 Route.get('/', async ({request}) => {
 
@@ -170,4 +170,4 @@ Route.get('/admin/:type', async ({params}) => {
     }
 
 })
-
+*/

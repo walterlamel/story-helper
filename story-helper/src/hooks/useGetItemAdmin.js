@@ -7,7 +7,7 @@ const useGetItemAdmin = (type, refresh) => {
        const [error, setError] = useState();
 
        useEffect(() => {
-              fetch(urlApi + "admin/" + type)
+              fetch(urlApi + "all/" + type)
                      .then((res) => res.json())
                      .then(
                             (resultat) => {
