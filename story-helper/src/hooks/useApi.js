@@ -7,42 +7,35 @@ const useApi = (loadApi = false, what = "") => {
        const [result, setResult] = useState(null);
        const [error, setError] = useState(false);
        const [isOk, setIsOk] = useState(false);
+       const [loading, setLoading] = useState(false);
 
        useEffect(() => {
+              setLoading(true);
+
               let url = urlApi + what;
+
+              console.log(urlApi);
 
               fetch(url)
                      .then((res) => res.json())
                      .then(
                             (resultat) => {
+                                   //console.log(resultat);
                                    setIsOk(true);
-                                   console.log(resultat);
+                                   setResult(resultat);
+                                   setLoading(false);
                             },
                             (error) => {
                                    console.log("Erreur dans la connexion");
                                    console.log(error);
                                    setIsOk(false);
                                    setError(error);
+                                   setLoading(false);
                             },
                      );
-       }, []);
+       }, [loadApi, what]);
 
-       useEffect(() => {
-              let url = urlApi + what;
-
-              fetch(url)
-                     .then((res) => res.json())
-                     .then(
-                            (resultat) => {
-                                   setResult(resultat);
-                            },
-                            (error) => {
-                                   setError(error);
-                            },
-                     );
-       }, [loadApi]);
-
-       return { result, error, isOk };
+       return { result, error, loading, isOk };
 };
 
 export default useApi;

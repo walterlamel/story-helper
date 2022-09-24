@@ -1,0 +1,67 @@
+
+
+@media screen and (max-width:550px) {
+    .container-ideas{
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+
+        .idea{
+            height: fit-content;
+            width: 95vw;
+
+            h2{
+                margin-bottom: 2em;
+            }
+        }
+    }
+
+    .contain-text{
+        position: relative;
+        height: fit-content;
+        //padding: 4em 3em 1em 3em;
+
+        .contain-bottom{
+            height: max-content;
+        }
+    }
+
+    .container-popup-add{
+        align-items: flex-start;
+        overflow-y: scroll;
+    }
+
+    .popup-add form .contain-form{
+        width: 100%;
+    }
+
+    .popup-add{
+        max-width: none;
+    }
+
+    .popup-add form{
+        flex-direction: column;
+    }
+
+    .popup-add form .contain-img{
+        order: 2;
+        width: auto;
+
+    }
+
+    .popup-add label{
+        grid-template-columns: none;
+        grid-template-rows: 1em;
+        margin-top: 2em;
+
+        p{
+            padding: 0;
+            margin: 0;
+            line-height: 0;
+        }
+    }
+
+    
+}

@@ -9,7 +9,6 @@ const varianttext = {
 const BoutonAdd = ({ setPopupOpen }) => {
        const [hovering, setHovering] = useState(false);
 
-       useEffect(() => {}, [hovering]);
        return (
               <div
                      className="container-btn-add"

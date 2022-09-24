@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import useApi from "../hooks/useApi";
 import defaultimg from "../assets/img/default-place.jpg";
 
 const ContainIdea = ({ type }) => {
        const [loadApi, setLoadApi] = useState(0);
-       const { result, error, isOk } = useApi(loadApi, type);
+       const { result, error, loading, isOk } = useApi(loadApi, type);
+       const [lastId, setLastId] = useState(false);
+
+       useEffect(() => {
+              if (lastId && lastId === result.id) {
+                     console.log("ici");
+                     setLoadApi((prev) => prev + 1);
+              }
+              setLastId(result?.id);
+       }, [result]);
 
        return (
               <motion.div
@@ -18,7 +27,11 @@ const ContainIdea = ({ type }) => {
                             <div className="bordure"></div>
                             <div className="container-bg">
                                    <img
-                                          src={result?.img ?? defaultimg}
+                                          src={
+                                                 result?.img !== ""
+                                                        ? result?.img
+                                                        : defaultimg
+                                          }
                                           alt=""
                                    />
                             </div>
@@ -39,15 +52,33 @@ const ContainIdea = ({ type }) => {
                             </div>
                             <div className="contain-bottom">
                                    <div className="contain-infos">
-                                          {isOk ? (
-                                                 <>
-                                                        <h3>{result?.name}</h3>
-                                                        <p>{result?.desc}</p>
-                                                 </>
-                                          ) : (
-                                                 <div className="msg-error">
-                                                        {error.message}
+                                          {loading ? (
+                                                 <div className="loader">
+                                                        Chargement...
                                                  </div>
+                                          ) : (
+                                                 <>
+                                                        {isOk ? (
+                                                               <>
+                                                                      <h3>
+                                                                             {
+                                                                                    result?.name
+                                                                             }
+                                                                      </h3>
+                                                                      <p>
+                                                                             {
+                                                                                    result?.desc
+                                                                             }
+                                                                      </p>
+                                                               </>
+                                                        ) : (
+                                                               <div className="msg-error">
+                                                                      {
+                                                                             error.message
+                                                                      }
+                                                               </div>
+                                                        )}
+                                                 </>
                                           )}
                                    </div>
                                    <div className="contain-btn">

@@ -1,7 +1,7 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import { faker } from '@faker-js/faker';
 import Place from 'App/Models/Place'
-import LinkPlacesIntrigue from 'App/Models/LinkPlacesIntrigue';
+//import LinkPlacesIntrigue from 'App/Models/LinkPlacesIntrigue';
 
 export default class extends BaseSeeder {
   public async run () {
@@ -82,11 +82,14 @@ export default class extends BaseSeeder {
     "Centre astronomique",
     "Usine"
   ]
+  
 
 
     let creating:object[] = new Array();
-
+    
     for await (const name of names) {
+  
+
       creating.push(
         { name : name,
           desc : faker.lorem.sentence(3),
@@ -99,6 +102,7 @@ export default class extends BaseSeeder {
     await Place.createMany(creating);
     
 
+    /*
     await LinkPlacesIntrigue.createMany([
       {
         intrigueId : 2,
@@ -117,6 +121,7 @@ export default class extends BaseSeeder {
         placeId : 3,
       }
     ])
+    */
     
   }
 }

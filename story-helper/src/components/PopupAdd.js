@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import defaultPlace from "../assets/img/default-place.jpg";
 import defaultIntrigue from "../assets/img/default-intrigue.jpg";
 import defaultPerso from "../assets/img/default-personnage.jpg";
+import { createItem } from "../hooks/api";
 
-const MaxCaract = 140;
+const MaxCaract = 300;
 
 const PopupAdd = ({ open, setPopupOpen }) => {
        const [type, setType] = useState("intrigue");
@@ -23,6 +24,8 @@ const PopupAdd = ({ open, setPopupOpen }) => {
               if (isSubmit) {
                      setTimeout(() => {
                             setPopupOpen(false);
+                            setIsSubmit(false);
+                            setCaractRestant(MaxCaract);
                      }, 900);
               }
        }, [isSubmit]);
@@ -46,7 +49,7 @@ const PopupAdd = ({ open, setPopupOpen }) => {
               }
        }
 
-       function handleSubmit(e) {
+       async function handleSubmit(e) {
               e.preventDefault();
               const form = e.target;
               var formData = new FormData(form);
@@ -61,17 +64,25 @@ const PopupAdd = ({ open, setPopupOpen }) => {
                             img: img,
                      }),
               };
+
               fetch(process.env.REACT_APP_URL_API + "create", requestOptions)
                      .then((response) => response.json())
                      .then(
                             (data) => {
-                                   if (data === 1 || data.res) {
-                                          setIsSubmit(true);
+                                   console.log(data);
+                                   if (data.errors) {
+                                          let inps = [];
+                                          data.errors.forEach((err) => {
+                                                 inps.push(err.source.pointer);
+                                          });
+                                          setInputsError(inps);
+                                          setError(data.errors[0].title);
                                    } else {
-                                          showError(data);
+                                          setIsSubmit(true);
                                    }
                             },
                             (error) => {
+                                   console.log(error);
                                    setIsSubmit(false);
                                    setError(error.message);
                             },
@@ -100,6 +111,14 @@ const PopupAdd = ({ open, setPopupOpen }) => {
                                    }}
                             >
                                    <div className="popup-add">
+                                          <div
+                                                 className="btn-close"
+                                                 onClick={(e) =>
+                                                        setPopupOpen(false)
+                                                 }
+                                          >
+                                                 x
+                                          </div>
                                           <h5>
                                                  Proposer
                                                  <br />

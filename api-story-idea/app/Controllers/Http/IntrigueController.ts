@@ -40,6 +40,12 @@ export default class IntrigueController {
         return true;
     }
 
+    public async delete({params}:HttpContextContract){
+        const intrigue = await Intrigue.findOrFail(params.id);
+        await intrigue.delete();
+        return true;
+    }
+
 }
 
 

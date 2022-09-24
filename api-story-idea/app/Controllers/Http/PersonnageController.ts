@@ -22,10 +22,17 @@ export default class PersonnageController {
         return true;
     }
 
+    
+    public async delete({params}:HttpContextContract){
+        const p = await Personnage.findOrFail(params.id);
+        await p.delete();
+        return true;
+    }
+
 }
 
 
 export async function getRandomPerso(){
-    let res = await Database.rawQuery('SELECT * FROM personnages ORDER BY RANDOM() LIMIT 1')
-    return res[0] ?? [];
+    let res = await Database.rawQuery('SELECT * FROM personnages ORDER BY RAND() LIMIT 1')
+    return res[0][0] ?? [];
 }

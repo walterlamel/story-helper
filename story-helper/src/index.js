@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import Admin from "./Admin";
 
 const router = createBrowserRouter([
@@ -15,9 +16,15 @@ const router = createBrowserRouter([
               element: <Admin />,
        },
 ]);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
        <React.StrictMode>
+              <Helmet>
+                     <meta charSet="utf-8" />
+                     <title>Story Helper</title>
+              </Helmet>
               <RouterProvider router={router} />
        </React.StrictMode>,
 );

@@ -54,6 +54,6 @@ Récupéré les images via API Pinterest ?
 
 # A faire
 
-- Version mobile
 - Protéger l'API
 - Bloquer l'admin
+- Mettre un favicon

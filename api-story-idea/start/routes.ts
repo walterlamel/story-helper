@@ -27,6 +27,7 @@ import Intrigue from 'App/Models/Intrigue';
 import Personnage from 'App/Models/Personnage';
 import Place from 'App/Models/Place';
 import Database from '@ioc:Adonis/Lucid/Database';
+import { schema, validator, rules } from '@ioc:Adonis/Core/Validator';
 
 //import Logger from '@ioc:Adonis/Core/Logger';
 
@@ -34,7 +35,7 @@ import Database from '@ioc:Adonis/Lucid/Database';
 // rend un lieu, un perso et une intrigue aléatoire. Si place est indiqué en url, s'y adapte
 Route.get('/', async ({request}) => {
 
-  const queryData = request.get();
+  const queryData = request.qs();
   const choosenPlace = queryData.place;
   const allIntrigue = queryData.all;
 
@@ -64,12 +65,14 @@ Route.get('/intrigue', 'IntrigueController.index');
 Route.get('/intrigue/all', 'IntrigueController.showAll');
 Route.get('/intrigue/:id', 'IntrigueController.show');
 Route.put('/intrigue/:id', 'IntrigueController.edit');
+Route.delete('/intrigue/:id', 'IntrigueController.delete');
 
 
 //Personnages
 Route.get('/personnage', 'PersonnageController.index');
 Route.get('/personnage/:id', 'PersonnageController.show');
 Route.put('/personnage/:id', 'PersonnageController.edit');
+Route.delete('/personnage/:id', 'PersonnageController.delete');
 
 
 //Place
@@ -77,18 +80,39 @@ Route.get('/place', 'PlaceController.index');
 Route.get('/place/all', 'PlaceController.showAll');
 Route.get('/place/:id', 'PlaceController.show');
 Route.put('/place/:id', 'PlaceController.edit');
+Route.delete('/place/:id', 'PlaceController.delete');
 
 
 Route.post('/create', async ({request}:HttpContext) => {
   const i = request.all();
-  if(!i.name || i.name === ""){
-    return { res : false, text : "Vous devez donner un nom à l'élement", input : ["name"]}
-  }
-  if(!i.desc || i.desc === ""){
-    return { res : false, text : "Vous devez décrire l'élement", input : ["desc"]}
+  const type = i.type;
+
+  if(!i.img){
+    i.img = "";
   }
 
-  const type = i.type;
+  //verification des données
+  const createItemSchema = schema.create({
+    name : schema.string([
+      rules.trim()
+    ]),
+    desc : schema.string([
+      rules.trim()
+    ]),
+    img : schema.string.optional()
+  });
+
+  const item = await request.validate({
+    schema : createItemSchema,
+    messages: {
+      'required' : 'Vous devez indiquer ce champs',
+      'unique' : 'Ce nom est déjà utilisé. Veuillez en trouver un autre.'
+    },
+    reporter: validator.reporters.jsonapi,
+  })
+
+
+
   delete i.type;
   let newadd;
 
@@ -98,21 +122,23 @@ Route.post('/create', async ({request}:HttpContext) => {
         return { res : false, text : "Ce nom existe déjà", input : ["name"]}
       }
 
-      await Intrigue.create(i);
+      await Intrigue.create(item);
       newadd = await Intrigue.query().where('name', i.name);
       break;
     case "personnage":
       if(await (await Personnage.query().where('name', i.name)).length){
         return { res : false, text : "Ce nom existe déjà", input : ["name"]}
       }
-      await Personnage.create(i);
+      await Personnage.create(item);
       newadd = await Personnage.query().where('name', i.name);
+      break;
     case "place":
       if(await (await Place.query().where('name', i.name)).length){
         return { res : false, text : "Ce nom existe déjà", input : ["name"]}
       }
-      await Place.create(i);
+      await Place.create(item);
       newadd = await Place.query().where('name', i.name);
+      break;
   }
   
   return newadd.length;

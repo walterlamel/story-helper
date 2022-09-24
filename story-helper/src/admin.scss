@@ -29,7 +29,6 @@
         }
 
         tr{
-            padding: 10px;
             background-color: $main-fond-light;
             border-radius: 5px;
             height: 2em;
@@ -37,6 +36,15 @@
 
             &:hover{
                 border-bottom: 1px solid white;
+            }
+
+            td{
+                padding: 10px;
+            }
+
+            td.deleting{
+                font-size: 0.7em;
+                opacity: 0.8;
             }
         }
 

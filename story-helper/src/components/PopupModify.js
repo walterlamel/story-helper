@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import defaultPlace from "../assets/img/default-place.jpg";
 import defaultIntrigue from "../assets/img/default-intrigue.jpg";
 import defaultPerso from "../assets/img/default-personnage.jpg";
+import { modifyItem } from "../hooks/api";
 
-const MaxCaract = 140;
+const MaxCaract = 300;
 
 const PopupAdd = ({ open, setPopupOpen, idea, typeDefault, setRefresh }) => {
        const [type, setType] = useState(typeDefault);
@@ -23,17 +24,20 @@ const PopupAdd = ({ open, setPopupOpen, idea, typeDefault, setRefresh }) => {
               setDesc(idea.desc);
               setImg(idea.img ?? "");
               setIsActive(idea.is_active);
-       }, [idea]);
+       }, [idea, typeDefault]);
 
        useEffect(() => {
               setCaractRestant(MaxCaract - desc?.length);
        }, [desc]);
 
        useEffect(() => {
-              setRefresh((prev) => prev + 1);
               if (isSubmit) {
+                     setRefresh((prev) => prev + 1);
+
                      setTimeout(() => {
                             setPopupOpen(false);
+                            setIsSubmit(false);
+                            setCaractRestant(MaxCaract);
                      }, 900);
               }
        }, [isSubmit]);
@@ -57,7 +61,7 @@ const PopupAdd = ({ open, setPopupOpen, idea, typeDefault, setRefresh }) => {
               }
        }
 
-       function handleSubmit(e) {
+       async function handleSubmit(e) {
               e.preventDefault();
 
               const requestOptions = {
@@ -70,26 +74,15 @@ const PopupAdd = ({ open, setPopupOpen, idea, typeDefault, setRefresh }) => {
                             is_active: isActive,
                      }),
               };
-              fetch(
-                     process.env.REACT_APP_URL_API + type + "/" + idea.id,
-                     requestOptions,
-              )
-                     .then((response) => response.json())
-                     .then(
-                            (data) => {
-                                   console.log(data);
 
-                                   if (data === true || data.res) {
-                                          setIsSubmit(true);
-                                   } else {
-                                          showError(data);
-                                   }
-                            },
-                            (error) => {
-                                   setIsSubmit(false);
-                                   setError(error.message);
-                            },
-                     );
+              let res = await modifyItem(idea, type, requestOptions);
+
+              if (res.res) {
+                     setIsSubmit(true);
+              } else {
+                     setIsSubmit(false);
+                     setError(res.error);
+              }
        }
 
        function showError(resError) {
@@ -114,6 +107,14 @@ const PopupAdd = ({ open, setPopupOpen, idea, typeDefault, setRefresh }) => {
                                    }}
                             >
                                    <div className="popup-add">
+                                          <div
+                                                 className="btn-close"
+                                                 onClick={(e) =>
+                                                        setPopupOpen(false)
+                                                 }
+                                          >
+                                                 x
+                                          </div>
                                           <h5>
                                                  Modifier
                                                  <br />

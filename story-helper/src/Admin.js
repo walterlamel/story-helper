@@ -1,29 +1,17 @@
 import React, { useEffect, useState } from "react";
 import PopupModify from "./components/PopupModify";
+import { deleteItem } from "./hooks/api";
+import useGetItemAdmin from "./hooks/useGetItemAdmin";
 
 const urlApi = process.env.REACT_APP_URL_API;
 
 const Admin = () => {
-       const [list, setList] = useState([]);
+       //const [list, setList] = useState([]);
        const [selected, setSelected] = useState(false);
        const [popupOpen, setPopupOpen] = useState(false);
        const [onglet, setOnglet] = useState("intrigue");
        const [refresh, setRefresh] = useState(1);
-
-       useEffect(() => {
-              fetch(urlApi + "admin/" + onglet)
-                     .then((res) => res.json())
-                     .then(
-                            (resultat) => {
-                                   console.log(resultat);
-                                   setList(resultat);
-                            },
-                            (error) => {
-                                   console.log("Erreur dans la connexion");
-                                   console.log(error);
-                            },
-                     );
-       }, [onglet, refresh]);
+       const { list, error } = useGetItemAdmin(onglet, refresh);
 
        return (
               <div className="App page-admin">
@@ -89,11 +77,17 @@ const Admin = () => {
                                                                       idea={
                                                                              idea
                                                                       }
+                                                                      type={
+                                                                             onglet
+                                                                      }
                                                                       setSelected={
                                                                              setSelected
                                                                       }
                                                                       setPopupOpen={
                                                                              setPopupOpen
+                                                                      }
+                                                                      setRefresh={
+                                                                             setRefresh
                                                                       }
                                                                />
                                                         );
@@ -106,17 +100,44 @@ const Admin = () => {
        );
 };
 
-const Line = ({ idea, setSelected, setPopupOpen }) => {
+const Line = ({ idea, type, setSelected, setPopupOpen, setRefresh }) => {
+       async function deleting(e) {
+              e.preventDefault();
+              if (
+                     window.confirm(
+                            "Etes-vous sûr de vouloir supprimer cet élément : " +
+                                   idea.name,
+                     )
+              ) {
+                     await deleteItem(type, idea.id);
+                     console.log("Bien supprimé");
+                     setRefresh((prev) => prev + 1);
+              }
+       }
+
        return (
-              <tr
-                     className={idea.is_active ? "approuved" : "notapprouved"}
-                     onClick={(e) => {
-                            setSelected(idea);
-                            setPopupOpen(true);
-                     }}
-              >
-                     <td className="name">{idea?.name}</td>
-                     <td className="desc">{idea?.desc.substr(0, 100)}</td>
+              <tr className={idea.is_active ? "approuved" : "notapprouved"}>
+                     <td
+                            className="name"
+                            onClick={(e) => {
+                                   setSelected(idea);
+                                   setPopupOpen(true);
+                            }}
+                     >
+                            {idea?.name}
+                     </td>
+                     <td
+                            className="desc"
+                            onClick={(e) => {
+                                   setSelected(idea);
+                                   setPopupOpen(true);
+                            }}
+                     >
+                            {idea?.desc.substr(0, 100)}
+                     </td>
+                     <td className="deleting" onClick={deleting}>
+                            Supprimer
+                     </td>
               </tr>
        );
 };
