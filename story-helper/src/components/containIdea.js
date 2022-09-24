@@ -10,7 +10,6 @@ const ContainIdea = ({ type }) => {
 
        useEffect(() => {
               if (lastId && lastId === result.id) {
-                     console.log("ici");
                      setLoadApi((prev) => prev + 1);
               }
               setLastId(result?.id);

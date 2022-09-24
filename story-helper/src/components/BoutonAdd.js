@@ -29,7 +29,7 @@ const BoutonAdd = ({ setPopupOpen }) => {
                                           : varianttext.hidden
                             }
                      >
-                            Proposer une idea
+                            Proposer une idée
                      </motion.div>
               </div>
        );

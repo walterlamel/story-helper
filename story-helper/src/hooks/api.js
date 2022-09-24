@@ -20,16 +20,13 @@ export const modifyItem = async (idea, type, requestOptions) => {
               );
 };
 
-export const deleteItem = async (type, id) => {
+export const deleteItem = async (id) => {
        const requestOptions = {
               method: "DELETE",
               headers: { "Content-Type": "application/json" },
        };
 
-       return await fetch(
-              process.env.REACT_APP_URL_API + type + "/" + id,
-              requestOptions,
-       )
+       return await fetch(process.env.REACT_APP_URL_API + +id, requestOptions)
               .then((response) => response.json())
               .then(
                      (data) => {
