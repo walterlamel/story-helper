@@ -15,8 +15,9 @@ env:
 jobs:
        build:
               runs-on: ubuntu-latest
-              env:
-                     working-directory: ${{ env.PATH_API }}
+              defaults:
+                     run:
+                            working-directory: ${{ env.PATH_API }}
               steps:
                      - uses: actions/checkout@master
 
