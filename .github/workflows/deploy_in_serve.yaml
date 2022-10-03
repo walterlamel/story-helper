@@ -16,9 +16,9 @@ jobs:
               steps:
                      - uses: actions/checkout@master
 
-                     - run: cd ./api-story-idea
-
-                     - run: node ace run build
+                     - run: |
+                              cd ./api-story-idea
+                              node ace build
 
                      - name: create artifact
                        uses: actions/upload-artifact@v1
