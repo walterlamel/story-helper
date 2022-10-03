@@ -20,7 +20,7 @@ jobs:
                        uses: actions/upload-artifact@v1
                        with:
                               name: ${{ env.NAME_ARTIFICAT }}
-                              path: /
+                              path: ./
 
        deploy:
               runs-on: ubuntu-latest
