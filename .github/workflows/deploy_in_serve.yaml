@@ -19,7 +19,6 @@ jobs:
                      - uses: actions/checkout@master
 
                      - name: Set up node
-                       working-directory: ${{ env.PATH_API }}
                        uses: actions/setup-node@master
                        with:
                         node-version: ${{ env.NODE_VERSION }}
