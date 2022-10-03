@@ -9,6 +9,8 @@ env:
        NODE_VERSION: "16"
        NAME_ARTIFICAT: "story-helper"
        REMOTE_TARGET: /home/debianftp/www/api-story-helper
+       PATH_API: ./api-story-idea
+       PATH_APP: ./story-helper
 
 jobs:
        build:
@@ -16,15 +18,15 @@ jobs:
               steps:
                      - uses: actions/checkout@master
 
-                     - run: |
-                              cd ./api-story-idea
-                              node ace build
+                     - name: build api
+                       working-directory: ${{ env.PATH_API }}
+                       run: node ace build
 
                      - name: create artifact
                        uses: actions/upload-artifact@v1
                        with:
                               name: ${{ env.NAME_ARTIFICAT }}
-                              path: ./api-story-idea/build
+                              path: ${{ env.PATH_API }}/build
 
        deploy:
               runs-on: ubuntu-latest
