@@ -16,6 +16,8 @@ jobs:
               steps:
                      - uses: actions/checkout@master
 
+                     - run: cd ./api-story-idea
+
                      - name: create artifact
                        uses: actions/upload-artifact@v1
                        with:
