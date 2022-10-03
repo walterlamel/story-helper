@@ -15,6 +15,20 @@ const schemaItem = schema.create({
     ])
 });
 
+const schemaItemModif = schema.create({
+    name : schema.string.optional([
+        rules.trim()
+        ]),
+    desc : schema.string.optional([
+        rules.trim()
+        ]),
+    img : schema.string.optional(),
+    typeId : schema.number.optional([
+        rules.exists({ table: 'types', column : 'id'})
+    ]),
+    is_active : schema.boolean.optional()
+});
+
 export default class ItemController {
 
     /**
@@ -48,11 +62,23 @@ export default class ItemController {
      * @param params string type recherché (optionnel) 
      * @returns tableau
      */
-    public async getall({params}:HttpContext){
+    public async getall({params, request}:HttpContext){
+        const  {is_active, asc} = request.qs();
+
+        const query = Item.query().preload('type');
+
+        if(is_active !== undefined){
+            query.where('is_active', is_active);
+        }
+
+        if(asc !== undefined){
+                query.orderBy(asc, asc)
+        }
+
         if(params.type){
-            return await Item.query().preload('type').whereHas('type',(query) => {query.where('name', params.type)});
+            return await query.whereHas('type',(query) => {query.where('name', params.type)});
         } else {
-            return await Item.query().preload('type');
+            return await query;
         }
     }
 
@@ -90,11 +116,17 @@ export default class ItemController {
      */
     public async update({params, request}:HttpContext){
         const item = await Item.findByOrFail('id', params.id);
-        const i = request.all();
-        await item.merge(i)
-        .save();
-        
-        return true;
+        const verifInfos = await request.validate({
+            schema : schemaItemModif,
+            messages: {
+            'required' : 'Vous devez indiquer ce(s) champs',
+            'unique' : 'Ce nom est déjà utilisé. Veuillez en trouver un autre.',
+            'exists' : 'Le type ne correspond pas à un type existant'
+            },
+            reporter: validator.reporters.jsonapi,
+        })
+
+        return await item.merge(verifInfos).save();
     }
 
     /**
