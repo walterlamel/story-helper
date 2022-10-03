@@ -15,12 +15,13 @@ env:
 jobs:
        build:
               runs-on: ubuntu-latest
+              env:
+                     working-directory: ${{ env.PATH_API }}
               steps:
                      - uses: actions/checkout@master
 
                      - name: Check node
                        uses: actions/setup-node@master
-                       working-directory: ${{ env.PATH_API }}
                        with:
                               node-version: ${{ env.NODE_VERSION }}
                               cache: "npm"
