@@ -128,14 +128,6 @@ const PopupAdd = ({ open, setPopupOpen, idea, typeDefault, setRefresh }) => {
                                                                       handleSubmit
                                                                }
                                                         >
-                                                               <div className="contain-img">
-                                                                      <img
-                                                                             src={getImageDefault(
-                                                                                    type,
-                                                                             )}
-                                                                             alt=""
-                                                                      />
-                                                               </div>
                                                                <div className="contain-form">
                                                                       <div className="contain-radio">
                                                                              <label
@@ -297,32 +289,6 @@ const PopupAdd = ({ open, setPopupOpen, idea, typeDefault, setRefresh }) => {
                                                                                                   caractRestant
                                                                                            }
                                                                                     </div>
-                                                                             </label>
-                                                                             <label htmlFor="img">
-                                                                                    <p>
-                                                                                           Url
-                                                                                           de
-                                                                                           l'image
-                                                                                    </p>
-                                                                                    <input
-                                                                                           type="text"
-                                                                                           name="img"
-                                                                                           id="img"
-                                                                                           onInput={(
-                                                                                                  e,
-                                                                                           ) =>
-                                                                                                  setImg(
-                                                                                                         e
-                                                                                                                .target
-                                                                                                                .value,
-                                                                                                  )
-                                                                                           }
-                                                                                           value={
-                                                                                                  img
-                                                                                                         ? img
-                                                                                                         : ""
-                                                                                           }
-                                                                                    />
                                                                              </label>
                                                                       </div>
                                                                       <div className="message-retour">

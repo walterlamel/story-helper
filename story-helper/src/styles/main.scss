@@ -1,0 +1,204 @@
+$main-fond : #03232b;
+$main-fond-light : #001b20;
+$main-fond-light2 : #1f4349;
+$color-intrigue: #D63661;
+$color-place: #28BDCE;
+$color-personnage: #F3CE39;
+$error-color :rgb(116, 17, 17);
+$text-size-moyenne:15px;
+
+@import url('https://fonts.googleapis.com/css2?family=Karma:wght@300;400&display=swap');
+
+$text-family : 'Karma', serif;
+
+//reinitializer
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.App{
+    background-color: $main-fond;
+    font-family: $text-family;
+    font-size: $text-size-moyenne;
+    color: white;
+    text-align: center;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+
+    .background{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-image: url('../assets/img/background.jpg');
+        background-position: center;    
+        background-size: cover;
+        top: 0;
+        left: 0;
+        opacity: 0.1;
+        z-index:0;
+    }
+}
+
+
+.container-ideas{
+    $space : 8%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 $space;
+    gap: $space;
+    margin-top: 10%;
+    position: relative;
+    z-index: 2;
+
+    .column{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        flex-grow: 3;
+        width: 100%;
+        min-width: 313px;
+        height: 79%;
+
+        .header{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container-icon{
+            width: 70px;
+            margin-bottom: 15px;
+
+            img{
+                object-fit: contain;
+                width:100%;
+                margin: auto;
+                aspect-ratio: 1;
+            }
+        }
+
+        .container-element{
+            width: 100%;
+        }
+
+        h3{
+            letter-spacing: 0.7em;
+            text-transform: uppercase;
+            opacity: 0.55;
+            font-size: 0.9em;
+            margin-bottom: 2.5em;
+            font-weight: 300;
+            width: 100%;
+        }
+
+        h2{
+            letter-spacing: 0.7em;
+            text-transform: uppercase;
+            font-size: 1.3em;
+            max-width: 85%;
+            margin: auto;
+            width: 100%;
+            height: 105px;
+        }
+
+        
+
+        .desc{
+            text-align: left;
+            opacity: 0.8;
+            line-height: 1.8em;
+            width: 100%;
+        }
+
+        .contain-reload{
+            width: 25px;
+            aspect-ratio: 1;
+            position: absolute;
+            bottom: 0;
+            margin: auto;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img{
+                width: 100%;
+                object-fit: contain;
+                position: relative;
+                z-index: 1;
+            }
+
+            .back{
+                background: radial-gradient(circle, rgba(255,255,255,1) 23%, rgba(255,255,255,0) 50%);
+                position: absolute;
+                width: 100px;
+                aspect-ratio: 1;
+                z-index: 0;
+                opacity: 0.2;
+            }
+        }
+    }
+}
+
+
+.intrigue h2{
+    color: $color-intrigue;
+}
+.place h2{
+    color: $color-place;
+}
+.personnage h2{
+    color: $color-personnage;
+}
+
+
+
+.titles{
+    position: absolute;
+    left: 1em;
+    bottom: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+
+    img{
+        max-width: 193px;
+    }
+
+    .ligne{
+        width: 2px;
+        height: 72px;
+        margin: 0 15px;
+        background-color: white;
+    }
+
+    p{
+        max-width: 700px;
+        text-align: left;
+    }
+}
+
+footer{
+    font-size: 9px;
+    position: absolute;
+    left: 1em;
+    bottom: 1em;
+}
+
+
+@import './boutonAdd.scss',
+         './popupAdd.scss',
+         './admin.scss',
+         './mobile.scss';

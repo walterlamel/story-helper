@@ -4,7 +4,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import Admin from "./Admin";
+import Admin from "./components/Admin";
 
 const router = createBrowserRouter([
        {

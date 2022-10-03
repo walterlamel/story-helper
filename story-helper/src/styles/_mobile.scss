@@ -1,0 +1,155 @@
+
+
+@media screen and (max-width:1263px) {
+    .container-ideas{
+        margin: 2em;
+        margin-top: 8em;
+        gap: 1em;
+    }
+
+    h2{
+        height: 56px;
+    }
+}
+
+
+@media screen and (max-width:1000px) {
+
+    .App{
+        flex-direction: column;
+        width: 100vw;
+        overflow: hidden;
+    }
+
+    .titles{
+        position: relative;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 2em;
+        gap: 1em;
+
+        .ligne{
+            display: none;
+        }
+    }
+
+    .container-ideas{
+        flex-direction: column;
+        justify-content: flex-start;
+        margin: 3em 0;
+        width: 100%;
+
+        .column{
+            flex-direction: row;
+            align-items: flex-start;
+            border-bottom: 1px solid white;
+            flex-grow: 0;
+            padding: 2em 0;
+
+            .header{
+                width: 200px;
+
+                h3{
+                    font-size: 0.5em;
+                }
+            }
+        }
+
+        .container-element{
+            h2{
+                text-align: left;
+                margin: 0;
+            }
+        }
+    }
+}
+
+
+
+@media screen and (max-width:550px) {
+
+
+    .titles{
+        left: auto;
+        padding: 1em;
+    }
+
+    .container-ideas .column{
+        flex-direction: column;
+        padding: 1em;
+    }
+
+    .container-ideas .column .header{
+        align-items: flex-start;
+    }
+
+    .container-ideas .column .header h3{
+        text-align: left;
+    }
+
+    .container-ideas .column{
+        border: none;
+        margin: 2em 0;
+    }
+
+    .container-ideas .column .container-icon{
+        width: 30px;
+    }
+
+    .container-ideas .container-element h2{
+        height: auto;
+        margin-bottom: 1em;
+    }
+
+    .container-ideas .column .contain-reload{
+        bottom: auto;
+        right: 2em;
+    }
+
+    .contain-text{
+        position: relative;
+        height: fit-content;
+        //padding: 4em 3em 1em 3em;
+
+        .contain-bottom{
+            height: max-content;
+        }
+    }
+
+    .container-popup-add{
+        align-items: flex-start;
+        overflow-y: scroll;
+    }
+
+    .popup-add form .contain-form{
+        width: 100%;
+    }
+
+    .popup-add{
+        max-width: none;
+    }
+
+    .popup-add form{
+        flex-direction: column;
+    }
+
+    .popup-add form .contain-img{
+        order: 2;
+        width: auto;
+
+    }
+
+    .popup-add label{
+        grid-template-columns: none;
+        grid-template-rows: 1em;
+        margin-top: 2em;
+
+        p{
+            padding: 0;
+            margin: 0;
+            line-height: 0;
+        }
+    }
+
+    
+}

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import BoutonAdd from "./components/BoutonAdd.js";
-import ContainIdea from "./components/containIdea";
-import PopupAdd from "./components/PopupAdd.js";
-import "./main.scss";
+import Column from "./components/Column.js";
+import "./styles/main.scss";
+import { PLACE, INTRIGUE, PERSO } from "./data/type";
+import FormAdd from "./components/FormAdd.js";
 
 function App() {
        const [PopupOpen, setPopupOpen] = useState(false);
@@ -10,21 +11,29 @@ function App() {
        return (
               <div className="App">
                      <div className="titles">
-                            {/* 
-                            <h1>Helper writing</h1>
-                            <h2>for roleplaying and scenario</h2>
-                                   */}
+                            <img src="/logo.png" alt="StoryHelper" />
+                            <div className="ligne"></div>
+                            <div className="container-presentation">
+                                   <p>
+                                          StoryHelper est un petit outil qui va
+                                          vous aider à combattre le syndrome de
+                                          la page blanche. Utilisez ce sélecteur
+                                          aléatoire d'idée pour faire des
+                                          associations et créez votre scénario
+                                          de JDR
+                                   </p>
+                            </div>
                      </div>
 
                      <div className="container-ideas">
-                            <ContainIdea type="place" />
-                            <ContainIdea type="intrigue" />
-                            <ContainIdea type="personnage" />
+                            <Column type={PLACE} />
+                            <Column type={PERSO} />
+                            <Column type={INTRIGUE} />
                      </div>
 
                      <BoutonAdd setPopupOpen={setPopupOpen} />
 
-                     <PopupAdd open={PopupOpen} setPopupOpen={setPopupOpen} />
+                     <FormAdd open={PopupOpen} setPopupOpen={setPopupOpen} />
 
                      <footer>v1.0 - Kevin Soulhol</footer>
 

@@ -146,7 +146,16 @@ Route.post('/create', async ({request}:HttpContext) => {
 });
 
 //recupère tous les éléments non actif
-Route.get('/admin', async () => {
+Route.get('/admin', async ({request}:HttpContext) => {
+  const  {type} = request.qs();
+
+  const query = await Database.query();
+
+  if(type){
+    query.from(type);
+  }
+
+
   let intrigues = await Database.from('intrigues').select('*').where("is_active", false);
   let places = await Database.from('places').select('*').where("is_active", false);
   let personnages = await Database.from('personnages').select('*').where("is_active", false);

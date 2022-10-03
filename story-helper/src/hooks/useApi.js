@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 
-//const urlApi = "http://127.0.0.1:3333/";
 const urlApi = process.env.REACT_APP_URL_API;
 
 const useApi = (loadApi = false, what = "") => {
-       const [result, setResult] = useState(null);
+       const [result, setResult] = useState([]);
        const [error, setError] = useState(false);
        const [isOk, setIsOk] = useState(false);
        const [loading, setLoading] = useState(false);
@@ -13,8 +12,7 @@ const useApi = (loadApi = false, what = "") => {
               setLoading(true);
 
               let url = urlApi + what;
-
-              console.log(urlApi);
+              console.log(url);
 
               fetch(url)
                      .then((res) => res.json())
