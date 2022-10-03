@@ -28,6 +28,8 @@ jobs:
                               cache: "npm"
                               cache-dependency-path: ${{ env.PATH_API }}/package-lock.json
 
+                     - run: npm install
+
                      - name: Build
                        run: node ace build
                        working-directory: ${{ env.PATH_API }}
