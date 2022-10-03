@@ -17,41 +17,23 @@ jobs:
               runs-on: ubuntu-latest
               steps:
                      - uses: actions/checkout@master
+#
+#- name: Check Node
+#uses: actions/setup-node@master
+#with:
+#node-version: ${{ env.NODE_VERSION }}
+#cache: "npm"
 
-                     - name: Check Node
-                       uses: actions/setup-node@master
-                       with:
-                        node-version: ${{ env.NODE_VERSION }}
-                        cache: "npm"
+#- name: build api
+#working-directory: ${{ env.PATH_API }}
+#run: node ace build
+#
+#- name: get env
+#working-directory: ${{ env.PATH_API }}
+# run: cp .env.production ./build/.env
 
-                     - name: build api
-                       working-directory: ${{ env.PATH_API }}
-                       run: node ace build
-
-                    - name: get env
-                       working-directory: ${{ env.PATH_API }}
-                       run: cp .env.production ./build/.env
-
-                     - name: create artifact
-                       uses: actions/upload-artifact@v1
-                       with:
-                              name: ${{ env.NAME_ARTIFICAT }}
-                              path: ${{ env.PATH_API }}/build
-
-       deploy:
-              runs-on: ubuntu-latest
-              needs: build
-              steps:
-                     - name: checkout node
-                       uses: actions/checkout@master
-
-                     - name: checkout 2
-                       uses: actions/setup-node@master
-                       with:
-                              node-version: ${{ env.NODE_VERSION }}
-
-                     - name: Get artifact
-                       uses: actions/download-artifact@v1
-                       with:
-                              name: ${{ env.NAME_ARTIFICAT }}
-                              path: ./
+#- name: create artifact
+#uses: actions/upload-artifact@v1
+#with:
+#name: ${{ env.NAME_ARTIFICAT }}
+#path: ${{ env.PATH_API }}/build
