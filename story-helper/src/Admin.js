@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PopupModify from "./components/PopupModify";
+import PopupAdd from "./components/PopupAdd";
 import { deleteItem } from "./hooks/api";
 import useGetItemAdmin from "./hooks/useGetItemAdmin";
 
@@ -15,8 +15,10 @@ const Admin = () => {
 
        return (
               <div className="App page-admin">
-                     <PopupModify
+                     <PopupAdd
                             open={popupOpen}
+                            modifier={true}
+                            currentIdea={selected}
                             setPopupOpen={setPopupOpen}
                             idea={selected}
                             typeDefault={onglet}
@@ -109,7 +111,7 @@ const Line = ({ idea, type, setSelected, setPopupOpen, setRefresh }) => {
                                    idea.name,
                      )
               ) {
-                     await deleteItem(type, idea.id);
+                     await deleteItem(idea.id);
                      console.log("Bien supprimé");
                      setRefresh((prev) => prev + 1);
               }

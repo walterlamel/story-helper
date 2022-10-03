@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 23 sep. 2022 à 22:40
+-- Généré le : sam. 24 sep. 2022 à 14:16
 -- Version du serveur :  8.0.30
 -- Version de PHP : 7.4.30
 
@@ -94,7 +94,8 @@ INSERT INTO `intrigues` (`id`, `name`, `desc`, `detail`, `img`, `is_active`, `cr
 (9, 'Maladie', 'Une maladie étrange s\'empare des habitants d\'un village. Personne ne comprend mais il faut absolument trouver la raison de ce malheur avant que tous les habitants soient morts.', NULL, 'https://i.pinimg.com/564x/e3/d8/57/e3d85747b136fd8ecbfa179e87ca8075.jpg', 1, '2022-09-23 10:29:37', '2022-09-23 10:34:48'),
 (10, 'Repos au coin du feu', 'Les aventuriers ont bien mérité un peu de repos entre deux aventures. Peut-être auront-ils de belles histoires, poèmes, chanson ou blagues à raconter aux autres !', NULL, 'https://i.pinimg.com/564x/4e/27/77/4e2777642776bae66948dd43e314f00f.jpg', 1, '2022-09-23 10:31:33', '2022-09-23 10:34:51'),
 (11, 'Rencontre diplomatique', 'Le seigneur de ces terres peut aider les aventuriers. Ils vont devoir se rendre à la salle du trône pour faire leur demande : diplomatie, élégance et courtoisie seront de mise face à ce dirigeant colérique.', NULL, 'https://i.pinimg.com/564x/79/a0/ca/79a0ca19b64adb743d902845dc091e3f.jpg', 1, '2022-09-23 10:33:09', '2022-09-23 10:34:45'),
-(12, 'Chercher le trésor', 'Un trésor puissant ou très cher est dissimulé derrière de nombreux pièges et ennemis. ', NULL, 'https://cdna.artstation.com/p/assets/images/images/013/029/254/large/hugh-pindur-pindurski-dying-wish-final.jpg?1537732648', 1, '2022-09-23 10:34:30', '2022-09-23 10:34:39');
+(12, 'Chercher le trésor', 'Un trésor puissant ou très cher est dissimulé derrière de nombreux pièges et ennemis. ', NULL, 'https://cdna.artstation.com/p/assets/images/images/013/029/254/large/hugh-pindur-pindurski-dying-wish-final.jpg?1537732648', 1, '2022-09-23 10:34:30', '2022-09-23 10:34:39'),
+(18, 'Capitale d\'un pays', 'Lieu hétéroclite où tout est possible, la capitale regorge d’activités, de commerces et d\'opportunités. C\'est là que l\'on peut trouver le centre politique, juridique et religieux. Mais c\'est aussi là qu\'il peut y avoir les mafias.', NULL, 'https://i.pinimg.com/564x/0f/8b/a6/0f8ba63a0759f7593fb7e124936fbffc.jpg', 1, '2022-09-24 07:59:52', '2022-09-24 08:11:48');
 
 -- --------------------------------------------------------
 
@@ -109,16 +110,6 @@ CREATE TABLE `link_places_intrigues` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Déchargement des données de la table `link_places_intrigues`
---
-
-INSERT INTO `link_places_intrigues` (`id`, `place_id`, `intrigue_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, '2022-09-21 10:24:36', '2022-09-21 10:24:36'),
-(2, 3, 2, '2022-09-21 10:24:36', '2022-09-21 10:24:36'),
-(3, 5, 1, '2022-09-21 10:24:37', '2022-09-21 10:24:37'),
-(4, 3, 1, '2022-09-21 10:24:37', '2022-09-21 10:24:37');
 
 -- --------------------------------------------------------
 
@@ -170,31 +161,6 @@ CREATE TABLE `places` (
 --
 
 INSERT INTO `places` (`id`, `name`, `desc`, `img`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'Entrepôt désaffecté', 'Enim fugit pariatur.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(2, 'Lac', 'Qui exercitationem aut.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(3, 'Lac féerique', 'Nulla omnis tempora.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(4, 'Montagne magique', 'Voluptatem fugit est.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(5, 'Montagne perdue', 'Consequatur modi aspernatur.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(6, 'Tours en béton', 'Consequatur est animi.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(7, 'Immeuble à moitié démoli', 'Veritatis qui fuga.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(8, 'Ferme', 'Omnis aliquid et.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(9, 'Rue pavée sinueuse', 'Perspiciatis repellat tempora.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(10, 'Lavoir', 'Saepe aut vel.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(11, 'Ruelle bondée', 'Laborum non omnis.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(12, 'Chantier en friche', 'Dolorem qui et.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(13, 'Café', 'Voluptas dolores sit.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(14, 'Forêt de pins', 'Explicabo repellendus fugiat.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(15, 'Forêt de chêne', 'Quidem quis consequatur.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(16, 'Forêt enchantée', 'Quis unde nihil.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(17, 'Désert', 'Eos alias deleniti.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(18, 'Désert rouge', 'Tenetur magnam eligendi.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(19, 'Désert de sel', 'Vel optio voluptate.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(20, 'Atelier', 'Autem velit voluptatibus.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(21, 'Train', 'Saepe aut maxime.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(22, 'Boîte', 'Reprehenderit error sit.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(23, 'Prison', 'Vero odit quidem.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(24, 'Loge', 'Voluptatem velit sint.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
-(25, 'Grande route perdue', 'Totam odio quasi.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
 (26, 'Sous-sol', 'Alias reprehenderit tempora.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
 (27, 'Squat', 'Ut ut voluptates.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
 (28, 'Grenier', 'Consequatur rerum laboriosam.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:35', '2022-09-21 10:24:35'),
@@ -243,12 +209,7 @@ INSERT INTO `places` (`id`, `name`, `desc`, `img`, `is_active`, `created_at`, `u
 (71, 'Coin d\'une salle de classe', 'Ea ea minima.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:36', '2022-09-21 10:24:36'),
 (72, 'Boutique d\'antiquaire', 'Aliquid consequatur aliquid.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:36', '2022-09-21 10:24:36'),
 (73, 'Centre astronomique', 'Totam doloribus iste.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:36', '2022-09-21 10:24:36'),
-(74, 'Usine', 'Magni voluptas molestiae.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:36', '2022-09-21 10:24:36'),
-(75, 'Velour', 'Orphelin de 12 ans avec une jolie bouille un peu sale. Il est né dans un bordel et a donc grandit bien trop vite.', '0', 0, '2022-09-21 12:01:19', '2022-09-21 12:01:19'),
-(76, 'Waris Truden', 'Enfant gourmand : du haut de son jeune âge, il faut malgré tout se méfier de lui. Il aime manger correctement et pour ça, il a besoin d\'argent. Il est prêt à tout pour sortir de la rue.', 'https://i.pinimg.com/564x/4b/b4/a7/4bb4a76f1ab7810cd83abc05e45b44d2.jpg', 0, '2022-09-23 10:39:28', '2022-09-23 10:39:28'),
-(77, 'Quin Kaljar', 'Vieille femme de la forêt : elle est très souriante et vit dans la forêt. Elle connait un millier d\'histoire et sans doute aussi de nombreux secrets...', 'https://i.pinimg.com/564x/91/1a/8e/911a8ed74a554c4a4fc3bc98859833ae.jpg', 0, '2022-09-23 10:41:40', '2022-09-23 10:41:40'),
-(78, 'Merelda', 'Vieille medium : Elle tire les cartes en parcourant le monde avec son âne. On se demande encore si elle arnaque ou si ses paroles recouvrent de grandes vérités', 'https://i.pinimg.com/564x/a2/44/59/a2445969d6f1bb03eb7cb780e4a8dbb0.jpg', 0, '2022-09-23 10:43:01', '2022-09-23 10:43:01'),
-(79, 'Luvox Elahorn', 'Majordome loyal : avec son visage avenant et sa force, il est le majordome idéal. Il fera tout pour rendre service. Tellement qu\'il gère bien plus que son maître.', 'https://i.pinimg.com/564x/35/66/6f/35666f0ccaac5f7c10c06e644d367fdd.jpg', 0, '2022-09-23 10:46:01', '2022-09-23 10:46:01');
+(74, 'Usine', 'Magni voluptas molestiae.', 'https://loremflickr.com/640/480/city', 1, '2022-09-21 10:24:36', '2022-09-21 10:24:36');
 
 --
 -- Index pour les tables déchargées
@@ -302,7 +263,7 @@ ALTER TABLE `adonis_schema`
 -- AUTO_INCREMENT pour la table `intrigues`
 --
 ALTER TABLE `intrigues`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `link_places_intrigues`
@@ -314,13 +275,13 @@ ALTER TABLE `link_places_intrigues`
 -- AUTO_INCREMENT pour la table `personnages`
 --
 ALTER TABLE `personnages`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `places`
 --
 ALTER TABLE `places`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- Contraintes pour les tables déchargées

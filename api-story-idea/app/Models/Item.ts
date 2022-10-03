@@ -1,32 +1,32 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
-import Place from 'App/Models/Place'
+import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import Type from 'App/Models/Type'
 
-export default class Intrigue extends BaseModel {
+export default class Item extends BaseModel {
   @column({ isPrimary: true })
   public id: number
-
+  
   @column()
   public name: string
 
   @column()
-  public desc: string
+  public typeId: number
 
   @column()
-  public detail: string
+  public desc: string
   
   @column()
   public img: string
 
   @column()
-  public isActive: boolean
+  public is_active: boolean
 
   
-  @manyToMany(() => Place, {
-    pivotTable : 'link_places_intrigues'
+  @belongsTo(() => Type, {
+    foreignKey: 'typeId'
   })
-  public places: ManyToMany<typeof Place>
-
+  public type: BelongsTo<typeof Type>
+  
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

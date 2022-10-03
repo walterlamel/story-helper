@@ -1,20 +1,33 @@
+/**
+ * Item
+ * 
+ * Objet qui correspond à une carte à piocher. 
+ * 
+ * name : nom de l'élément
+ * type : place | personnage | intrigue
+ * desc : description longue des éléments
+ * img : url de l'image pour la représenter
+ * is_active : reste en brouillon si false
+ */
+
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'places'
+  protected tableName = 'items'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
-      table.string('name').notNullable().unique()
+      
+      table.string('name').notNullable()
       table.text('desc').notNullable()
       table.string('img')
       table.boolean('is_active').defaultTo(false)
+      
+      //ForeignKey
+      table.integer('type_id').notNullable().references('id').inTable('types')
 
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
