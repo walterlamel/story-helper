@@ -18,7 +18,7 @@ jobs:
               steps:
                      - uses: actions/checkout@master
 
-                     - name: Set up node
+                     - name: Check Node
                        uses: actions/setup-node@master
                        with:
                         node-version: ${{ env.NODE_VERSION }}
