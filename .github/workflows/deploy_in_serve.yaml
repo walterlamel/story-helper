@@ -30,6 +30,7 @@ jobs:
 
                      - name: Build
                        run: node ace build
+                       working-directory: ${{ env.PATH_API }}
 #
 #- name: Check Node
 #uses: actions/setup-node@master
