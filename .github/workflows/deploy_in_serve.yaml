@@ -33,6 +33,15 @@ jobs:
                      - name: Build
                        run: node ace build
                        working-directory: ${{ env.PATH_API }}
+
+                     - name: get env
+                       run: cp .env.production ./build/.env
+
+                     - name: Artifact
+                       uses: actions/upload-artifact@v1
+                       with:
+                              name: ${{ env.NAME_ARTIFICAT }}
+                              path: ${{ env.PATH_API }}/build
 #
 #- name: Check Node
 #uses: actions/setup-node@master
