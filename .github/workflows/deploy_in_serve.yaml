@@ -18,11 +18,13 @@ jobs:
 
                      - run: cd ./api-story-idea
 
+                     - run: node ace run build
+
                      - name: create artifact
                        uses: actions/upload-artifact@v1
                        with:
                               name: ${{ env.NAME_ARTIFICAT }}
-                              path: ./
+                              path: ./api-story-idea/build
 
        deploy:
               runs-on: ubuntu-latest
