@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { modifyItem } from "../hooks/api";
 
-const FormAdd = ({ open, setPopupOpen }) => {
+const FormAdd = ({ open, setPopupOpen, item = false }) => {
        const [name, setName] = useState("");
        const [desc, setDesc] = useState("");
        const [type, setType] = useState("");
@@ -19,46 +20,70 @@ const FormAdd = ({ open, setPopupOpen }) => {
               }
        }, [isSubmit]);
 
+       useEffect(() => {
+              if (item) {
+                     setName(item.name);
+                     setDesc(item.desc);
+                     setType(item.type);
+              }
+       }, [item]);
+
        async function handleSubmit(e) {
               e.preventDefault();
               setLoading(true);
               setError("");
 
-              const requestOptions = {
-                     method: "POST",
-                     headers: { "Content-Type": "application/json" },
-                     body: JSON.stringify({
-                            typeId: type.id,
+              if (item.id) {
+                     await modifyItem(item, {
                             name: name,
                             desc: desc,
-                     }),
-              };
+                            typeId: type.id,
+                     });
+                     setPopupOpen(false);
+                     window.location.reload(false);
+              } else {
+                     const requestOptions = {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                   typeId: type.id,
+                                   name: name,
+                                   desc: desc,
+                            }),
+                     };
 
-              fetch(process.env.REACT_APP_URL_API + "create", requestOptions)
-                     .then((response) => response.json())
-                     .then(
-                            (data) => {
-                                   console.log(data);
-                                   if (data.errors) {
-                                          let inps = [];
-                                          data.errors.forEach((err) => {
-                                                 inps.push(err.source.pointer);
-                                          });
-                                          setInputsError(inps);
-                                          console.log(inps);
-                                          setError(data.errors[0].title);
-                                          setLoading(false);
-                                   } else {
-                                          setIsSubmit(true);
-                                          setLoading(false);
-                                   }
-                            },
-                            (error) => {
-                                   console.log(error);
-                                   setIsSubmit(false);
-                                   setError(error.message);
-                            },
-                     );
+                     fetch(
+                            process.env.REACT_APP_URL_API + "create",
+                            requestOptions,
+                     )
+                            .then((response) => response.json())
+                            .then(
+                                   (data) => {
+                                          console.log(data);
+                                          if (data.errors) {
+                                                 let inps = [];
+                                                 data.errors.forEach((err) => {
+                                                        inps.push(
+                                                               err.source
+                                                                      .pointer,
+                                                        );
+                                                 });
+                                                 setInputsError(inps);
+                                                 console.log(inps);
+                                                 setError(data.errors[0].title);
+                                                 setLoading(false);
+                                          } else {
+                                                 setIsSubmit(true);
+                                                 setLoading(false);
+                                          }
+                                   },
+                                   (error) => {
+                                          console.log(error);
+                                          setIsSubmit(false);
+                                          setError(error.message);
+                                   },
+                            );
+              }
        }
 
        return (
@@ -189,7 +214,7 @@ const Onglet = ({ type, setType, selectedType }) => {
                             " " +
                             type.name +
                             " " +
-                            (type.id == selectedType.id ? "select" : "")
+                            (type.id == selectedType?.id ? "select" : "")
                      }
                      onClick={(e) => setType(type)}
               >

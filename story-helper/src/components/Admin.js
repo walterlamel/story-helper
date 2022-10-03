@@ -1,36 +1,59 @@
 import React, { useEffect, useState } from "react";
-import useApi from "../hooks/useApi";
+import { modifyItem } from "../hooks/api";
 import useGetItemAdmin from "../hooks/useGetItemAdmin";
 import useGetTypes from "../hooks/useGetTypes";
+import FormAdd from "./FormAdd";
+import { motion } from "framer-motion";
 
 const Admin = () => {
        const [loadApi, setLoadApi] = useState(0);
        const [selectedType, setSelectedType] = useState("");
        const { types } = useGetTypes();
-       const { list } = useGetItemAdmin(selectedType, loadApi);
+       const { list, setParams } = useGetItemAdmin(selectedType, loadApi);
+       const [PopupOpen, setPopupOpen] = useState(false);
+       const [selectItem, setSelectItem] = useState(false);
 
        function handleChangeType(e) {
               setSelectedType(e.target.value);
        }
 
-       useEffect(() => {
-              console.log(list);
-       }, [list]);
+       function handleChangeActive(e) {
+              if (e.target.value !== "") {
+                     setParams((prev) => {
+                            return { ...prev, is_active: e.target.value };
+                     });
+              } else {
+                     setParams((prev) => {
+                            let newo = { ...prev };
+                            delete newo.is_active;
+                            return newo;
+                     });
+              }
+       }
+
+       function handleChangeAsc(column) {
+              setParams((prev) => {
+                     return { ...prev, asc: column };
+              });
+       }
+
+       function reloading() {
+              setLoadApi((prev) => prev + 1);
+       }
 
        return (
               <div className="App">
                      <div className="container-table">
-                            <form action="">
+                            <form action="" className="container-filter">
                                    <label htmlFor="types">
+                                          Type
                                           <select
                                                  name="type"
                                                  onChange={(e) =>
                                                         handleChangeType(e)
                                                  }
                                           >
-                                                 <option value="all">
-                                                        Tous
-                                                 </option>
+                                                 <option value="">Tous</option>
                                                  {types?.map((type, key) => (
                                                         <option
                                                                key={key}
@@ -43,31 +66,74 @@ const Admin = () => {
                                                  ))}
                                           </select>
                                    </label>
+                                   <label htmlFor="is_active">
+                                          Brouillon
+                                          <select
+                                                 name="is_active"
+                                                 onChange={(e) =>
+                                                        handleChangeActive(e)
+                                                 }
+                                          >
+                                                 <option value="">Tous</option>
+                                                 <option value="0">
+                                                        Brouillon
+                                                 </option>
+                                                 <option value="1">
+                                                        Visible
+                                                 </option>
+                                          </select>
+                                   </label>
                             </form>
 
                             <table>
+                                   <thead>
+                                          <tr>
+                                                 <td
+                                                        onClick={(e) =>
+                                                               handleChangeAsc(
+                                                                      "name",
+                                                               )
+                                                        }
+                                                 >
+                                                        Nom
+                                                 </td>
+                                                 <td>Type</td>
+                                                 <td
+                                                        onClick={(e) =>
+                                                               handleChangeAsc(
+                                                                      "is_active",
+                                                               )
+                                                        }
+                                                 >
+                                                        Brouillon
+                                                 </td>
+                                          </tr>
+                                   </thead>
                                    <tbody>
-                                          {list?.map((item, key) => (
-                                                 <tr key={key}>
-                                                        <td>{item.name}</td>
-                                                        <td>
-                                                               {item.type.name}
-                                                        </td>
-                                                        <td>
-                                                               <input
-                                                                      type="checkbox"
-                                                                      name="is_active"
-                                                                      id=""
-                                                                      checked={
-                                                                             item.is_active
-                                                                      }
-                                                               />
-                                                        </td>
-                                                 </tr>
+                                          {list.map((item) => (
+                                                 <Ligne
+                                                        key={item.id}
+                                                        item={item}
+                                                        reloading={(e) =>
+                                                               reloading()
+                                                        }
+                                                        setPopupOpen={
+                                                               setPopupOpen
+                                                        }
+                                                        selectItem={
+                                                               setSelectItem
+                                                        }
+                                                 />
                                           ))}
                                    </tbody>
                             </table>
                      </div>
+
+                     <FormAdd
+                            open={PopupOpen}
+                            setPopupOpen={setPopupOpen}
+                            item={selectItem}
+                     />
 
                      <footer>v1.0 - Kevin Soulhol</footer>
                      <div className="background"></div>
@@ -76,3 +142,35 @@ const Admin = () => {
 };
 
 export default Admin;
+
+const Ligne = ({ item, reloading, setPopupOpen, selectItem }) => {
+       async function updateItem() {
+              await modifyItem(item, item);
+              reloading();
+       }
+
+       function openPopup() {
+              selectItem(item);
+              setPopupOpen(true);
+       }
+
+       return (
+              <motion.tr whileHover={{ color: "black", background: "white" }}>
+                     <td className="name-column" onClick={(e) => openPopup()}>
+                            {item.name}
+                     </td>
+                     <td onClick={(e) => openPopup()}>{item?.type?.name}</td>
+                     <td className="checkbox-column">
+                            <input
+                                   type="checkbox"
+                                   name="is_active"
+                                   checked={item.is_active}
+                                   onChange={(e) => {
+                                          item.is_active = !item.is_active;
+                                          updateItem();
+                                   }}
+                            />
+                     </td>
+              </motion.tr>
+       );
+};

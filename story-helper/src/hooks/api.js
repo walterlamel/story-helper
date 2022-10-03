@@ -1,8 +1,18 @@
-export const modifyItem = async (idea, type, requestOptions) => {
-       return await fetch(
-              process.env.REACT_APP_URL_API + type + "/" + idea.id,
-              requestOptions,
-       )
+export const modifyItem = async (idea, params) => {
+       const url = process.env.REACT_APP_URL_API + idea.id;
+
+       const options = {
+              method: "PUT",
+              credentials: "include",
+              body: JSON.stringify(params),
+              headers: {
+                     "Content-Type": "application/json",
+              },
+       };
+
+       //console.log(params);
+
+       return await fetch(url, options)
               .then((response) => response.json())
               .then(
                      (data) => {

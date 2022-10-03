@@ -3,15 +3,26 @@ import { useEffect, useState } from "react";
 const urlApi = process.env.REACT_APP_URL_API;
 
 const useGetItemAdmin = (type, refresh) => {
-       const [list, setList] = useState({});
+       const [list, setList] = useState([]);
        const [error, setError] = useState();
+       const [params, setParams] = useState({});
 
        useEffect(() => {
-              fetch(urlApi + "all/" + type)
+              let url = urlApi + "all/" + type;
+              if (params) {
+                     url = url + "?";
+                     Object.keys(params).forEach(function (key, index) {
+                            url = url + key + "=" + params[key] + "&";
+                     });
+              }
+
+              //console.log(url);
+
+              fetch(url)
                      .then((res) => res.json())
                      .then(
                             (resultat) => {
-                                   //console.log(resultat);
+                                   console.log(resultat);
                                    setList(resultat);
                             },
                             (error) => {
@@ -20,9 +31,9 @@ const useGetItemAdmin = (type, refresh) => {
                                    setError(error);
                             },
                      );
-       }, [type, refresh]);
+       }, [type, refresh, params]);
 
-       return { list, error };
+       return { list, error, setParams };
 };
 
 export default useGetItemAdmin;
