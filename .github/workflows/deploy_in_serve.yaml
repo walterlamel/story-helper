@@ -18,9 +18,20 @@ jobs:
               steps:
                      - uses: actions/checkout@master
 
+                     - name: Set up node
+                       working-directory: ${{ env.PATH_API }}
+                       uses: actions/setup-node@master
+                       with:
+                        node-version: ${{ env.NODE_VERSION }}
+                        cache: "npm"
+
                      - name: build api
                        working-directory: ${{ env.PATH_API }}
                        run: node ace build
+
+                    - name: get env
+                       working-directory: ${{ env.PATH_API }}
+                       run: cp .env.production ./build/.env
 
                      - name: create artifact
                        uses: actions/upload-artifact@v1
