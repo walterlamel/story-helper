@@ -54,3 +54,16 @@ jobs:
                        with:
                               name: ${{ env.NAME_ARTIFICAT }}
                               path: ./build
+
+                     - name: Deploy
+                       uses: appleboy/ssh-action@master
+                       with:
+                              host: ${{ secrets.HOST }}
+                              username: ${{ secrets.USER }}
+                              port: ${{ secrets.PORT }}
+                              key: ${{ secrets.SSH_PRIVATE_KEY }}
+                              script_stop: true
+                              script: |
+                                     cd /home/debianftp/www/api-story-helper
+                                     npm ci --production
+                                     node sever.js
