@@ -84,6 +84,8 @@ jobs:
                        with:
                               node-version: ${{ env.NODE_VERSION }}
 
+                     - run: node -v
+
                      - name: Deploy
                        uses: appleboy/ssh-action@master
                        with:
