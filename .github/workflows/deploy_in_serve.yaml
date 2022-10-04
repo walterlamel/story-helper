@@ -31,7 +31,7 @@ jobs:
                      - run: npm install
 
                      - name: Build
-                       run: node ace build
+                       run: node ace build --production
                        working-directory: ${{ env.PATH_API }}
 
                      - name: get env
@@ -96,4 +96,5 @@ jobs:
                               script_stop: true
                               script: |
                                      cd /home/debianftp/www/api-story-helper
-                                     npm ci
+                                     npm ci --production
+                                     node server.js
