@@ -146,7 +146,7 @@ export default class ItemController {
      * @returns tableau resultat
      */
     private async getrandom(type: string){
-        let r = await Item.query().preload('type').whereHas('type', (query) => {query.where('name', type)}).where('is_active', true)
+        let r = await Item.query().preload('type').whereHas('type', (query) => {query.where('name', type)}).where('is_active', "1")
         return r[Math.floor(Math.random() * r.length)] ?? [];
     }
 }

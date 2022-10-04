@@ -22,7 +22,7 @@ import Route from '@ioc:Adonis/Core/Route';
 //import Logger from '@ioc:Adonis/Core/Logger';
 
 Route.get('/', 'ItemController.index'); //affiche 3 res random
-Route.get('/type', 'TypeController.index'); //affiche 3 res random
+Route.get('/type', 'TypeController.index'); //affiche les types existants
 Route.get('/all/', 'ItemController.getall'); //affiche tous les resultats
 Route.get('/all/:type', 'ItemController.getall'); //affiche tous les resultats selon le type
 Route.post('/create', 'ItemController.create'); //creer un nouvel item
