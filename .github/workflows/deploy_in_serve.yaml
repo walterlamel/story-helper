@@ -96,4 +96,4 @@ jobs:
                               script_stop: true
                               script: |
                                      cd /home/debianftp/www/api-story-helper
-                                     npm ci --production
+                                     npm ci
