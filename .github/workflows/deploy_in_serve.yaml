@@ -6,7 +6,7 @@ on:
                      - master
 
 env:
-       NODE_VERSION: "16"
+       NODE_VERSION: "16.17.1"
        NAME_ARTIFICAT: "story-helper"
        REMOTE_TARGET: /home/debianftp/www/api-story-helper
        PATH_API: ./api-story-idea
