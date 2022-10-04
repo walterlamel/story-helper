@@ -12,7 +12,7 @@ const useApi = (loadApi = false, what = "") => {
               setLoading(true);
 
               let url = urlApi + what;
-              console.log(url);
+              //console.log(url);
 
               fetch(url)
                      .then((res) => res.json())
