@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import env from "react-dotenv";
 
-const urlApi = process.env.REACT_APP_URL_API;
+const urlApi = env.REACT_APP_URL_API;
 
 const useGetItemAdmin = (type, refresh) => {
        const [list, setList] = useState([]);

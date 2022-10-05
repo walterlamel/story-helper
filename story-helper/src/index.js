@@ -24,12 +24,6 @@ root.render(
               <Helmet>
                      <meta charSet="utf-8" />
                      <title>Story Helper</title>
-                     <link
-                            rel="icon"
-                            type="image/png"
-                            href="logo_only.png"
-                            sizes="16x16"
-                     />
               </Helmet>
               <RouterProvider router={router} />
        </React.StrictMode>,
