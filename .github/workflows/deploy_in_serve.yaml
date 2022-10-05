@@ -112,8 +112,6 @@ jobs:
                        with:
                               node-version: ${{ env.NODE_VERSION }}
 
-                     - run: node -v
-
                      - name: Deploy
                        uses: appleboy/ssh-action@master
                        with:
@@ -123,6 +121,7 @@ jobs:
                               key: ${{ secrets.SSH_PRIVATE_KEY }}
                               script_stop: true
                               script: |
+                                     pm2 stop api-story-helper
                                      cd /home/debianftp/www/api-story-helper
                                      npm ci --production
                                      pm2 start server.js --name api-story-helper

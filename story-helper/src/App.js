@@ -4,11 +4,9 @@ import Column from "./components/Column.js";
 import "./styles/main.scss";
 import { PLACE, INTRIGUE, PERSO } from "./data/type";
 import FormAdd from "./components/FormAdd.js";
-import { useNavigate } from "react-router-dom";
 
 function App() {
        const [PopupOpen, setPopupOpen] = useState(false);
-       const navigate = useNavigate();
 
        return (
               <div className="App">
@@ -37,9 +35,7 @@ function App() {
 
                      <FormAdd open={PopupOpen} setPopupOpen={setPopupOpen} />
 
-                     <footer onClick={(e) => navigate("/admin")}>
-                            v1.0 - Kevin Soulhol
-                     </footer>
+                     <footer>v1.0 - Kevin Soulhol</footer>
 
                      <div className="background"></div>
               </div>
