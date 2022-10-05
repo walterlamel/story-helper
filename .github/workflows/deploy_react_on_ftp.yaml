@@ -31,7 +31,6 @@ jobs:
                      - run: npm install
 
                      - run: CI= npm run build
-                     - run: ls -la
 
                      - name: FTP
                        uses: SamKirkland/FTP-Deploy-Action@4.3.2

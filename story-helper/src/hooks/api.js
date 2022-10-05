@@ -1,7 +1,5 @@
-import env from "react-dotenv";
-
 export const modifyItem = async (idea, params) => {
-       const url = env.REACT_APP_URL_API + idea.id;
+       const url = process.env.REACT_APP_URL_API + idea.id;
 
        const options = {
               method: "PUT",
@@ -38,7 +36,7 @@ export const deleteItem = async (id) => {
               headers: { "Content-Type": "application/json" },
        };
 
-       return await fetch(env.REACT_APP_URL_API + +id, requestOptions)
+       return await fetch(process.env.REACT_APP_URL_API + +id, requestOptions)
               .then((response) => response.json())
               .then(
                      (data) => {

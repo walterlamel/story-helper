@@ -67,4 +67,16 @@
         font-family: $text-family;
         text-transform: uppercase;
     }
+
+    .btn-deco{
+        position: absolute;
+        bottom: 1em;
+        right: 1em;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        font-size: 0.7em;
+        font-family: $text-family;
+    }
 }

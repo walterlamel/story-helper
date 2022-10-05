@@ -1,0 +1,42 @@
+.login{
+    form{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 500px;
+        z-index: 1;
+
+        h2{
+            text-align: left;
+            width: 100%;
+        }
+
+        p{
+            margin: 2em 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        label{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 2em 0;
+            width: 100%;
+
+        }
+
+        input{
+            padding: 0.5em;
+            width: 100%;
+        }
+
+        .error{
+            margin: 1em 0;
+            height: 1em;
+        }
+    }
+}

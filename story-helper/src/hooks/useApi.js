@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import env from "react-dotenv";
 
-const urlApi = env.REACT_APP_URL_API;
+const urlApi = process.env.REACT_APP_URL_API;
 
 const useApi = (loadApi = false, what = "") => {
        const [result, setResult] = useState([]);

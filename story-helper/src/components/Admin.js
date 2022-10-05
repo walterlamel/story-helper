@@ -4,6 +4,8 @@ import useGetItemAdmin from "../hooks/useGetItemAdmin";
 import useGetTypes from "../hooks/useGetTypes";
 import FormAdd from "./FormAdd";
 import { motion } from "framer-motion";
+import Deconnect from "./Deconnect";
+import Footer from "./Footer";
 
 const Admin = () => {
        const [loadApi, setLoadApi] = useState(0);
@@ -141,6 +143,8 @@ const Admin = () => {
                             >
                                    Ajouter un item
                             </button>
+
+                            <Deconnect />
                      </div>
 
                      <FormAdd
@@ -150,8 +154,7 @@ const Admin = () => {
                             reloading={reloading}
                      />
 
-                     <footer>v1.0 - Kevin Soulhol</footer>
-                     <div className="background"></div>
+                     <Footer />
               </div>
        );
 };
