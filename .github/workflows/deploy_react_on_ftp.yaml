@@ -1,4 +1,4 @@
-name: Deploy React
+name: Deploy React et deploy
 run-name: ${{ github.actor }} lance le deploiement de REACT
 on:
        push:
@@ -12,7 +12,7 @@ env:
        PATH_APP: ./story-helper
 
 jobs:
-       BUILDREACT:
+       BUILD_DEPLOY:
               runs-on: ubuntu-latest
               defaults:
                      run:

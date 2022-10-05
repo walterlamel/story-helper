@@ -1,0 +1,18 @@
+
+<IfModule mod_rewrite.c>
+
+  RewriteEngine On
+  
+
+  #Aide React à gérer le router (renvoi toutes les urls sur l'index.html)
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteCond %{REQUEST_URI} !^/php/?$
+  RewriteRule . /index.html [L]
+
+</IfModule>
+
+
