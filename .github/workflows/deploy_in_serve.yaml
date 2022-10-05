@@ -8,11 +8,34 @@ on:
 env:
        NODE_VERSION: "16.17.1"
        NAME_ARTIFICAT: "story-helper"
+       NAME_ARTIFACT_REACT: "story-helper-react"
        REMOTE_TARGET: /home/debianftp/www/api-story-helper
        PATH_API: ./api-story-idea
+       PATH_REACT: ./story-helper
        PATH_APP: ./story-helper
 
 jobs:
+       BUILDREACT:
+              runs-on: ubuntu-latest
+              defaults:
+                     run:
+                            working-directory: ${{ env.PATH_REACT }}
+              steps:
+                     - uses: actions/checkout@master
+
+                     - uses: actions/setup-node@master
+                       with:
+                              node-version: ${{ env.NODE_VERSION }}
+                              cache: "npm"
+
+                     - run: npm run build
+
+                     - name: artificat react
+                       uses: actions/upload-artifact@v1
+                       with:
+                              name: ${{ env.NAME_ARTIFACT_REACT }}
+                              path: ${{ env.PATH_REACT }}
+
        BUILD:
               runs-on: ubuntu-latest
               defaults:
