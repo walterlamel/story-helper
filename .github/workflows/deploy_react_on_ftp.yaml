@@ -30,37 +30,11 @@ jobs:
 
                      - run: CI= npm run build
 
-                     - name: artificat react
-                       uses: actions/upload-artifact@v1
-                       with:
-                              name: ${{ env.NAME_ARTIFACT_REACT }}
-                              path: ${{ env.PATH_REACT }}/build
-
-       DEPLOYREACT:
-              runs-on: ubuntu-latest
-              needs: BUILDREACT
-              defaults:
-                     run:
-                            working-directory: ${{ env.PATH_REACT }}
-              steps:
-                     - uses: actions/checkout@master
-
-                     - uses: actions/setup-node@master
-                       with:
-                              node-version: ${{ env.NODE_VERSION }}
-                              cache: "npm"
-                              cache-dependency-path: ${{ env.PATH_REACT }}/package-lock.json
-
-                     - name: download artifact
-                       uses: actions/download-artifact@v1
-                       with:
-                              name: ${{ env.NAME_ARTIFACT_REACT }}
-                              path: ./
-
                      - name: FTP
                        uses: SamKirkland/FTP-Deploy-Action@4.3.2
                        with:
                               server: ftp.cluster023.hosting.ovh.net
                               username: ${{ secrets.FTP_USER }}
                               password: ${{ secrets.FTP_PASSWORD }}
+                              local-dir: ${{ env.PATH_REACT }}/build
                               server-dir: ./api-story-helper/
