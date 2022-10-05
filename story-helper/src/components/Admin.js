@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { modifyItem } from "../hooks/api";
 import useGetItemAdmin from "../hooks/useGetItemAdmin";
 import useGetTypes from "../hooks/useGetTypes";

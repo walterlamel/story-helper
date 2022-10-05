@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { deleteItem, modifyItem } from "../hooks/api";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const SPEED_LOADING_SUBMIT = 1000;
 
@@ -306,7 +306,7 @@ const Onglet = ({ type, setType, selectedType }) => {
                             " " +
                             type.name +
                             " " +
-                            (type.id == selectedType?.id ? "select" : "")
+                            (type.id === selectedType?.id ? "select" : "")
                      }
                      onClick={(e) => setType(type)}
               >

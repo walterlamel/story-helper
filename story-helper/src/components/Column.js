@@ -11,12 +11,14 @@ export function getName(type) {
                      return "Actions";
               case PERSO:
                      return "Personnages";
+              default:
+                     return "Type inexistant...";
        }
 }
 
 const Column = ({ type }) => {
        const [loadApi, setLoadApi] = useState(0);
-       const { result, error, loading } = useApi(loadApi, type);
+       const { result, loading } = useApi(loadApi, type);
        const [lastId, setLastId] = useState(false);
 
        useEffect(() => {
@@ -34,6 +36,8 @@ const Column = ({ type }) => {
                             return "actions.png";
                      case PERSO:
                             return "perso.png";
+                     default:
+                            return "";
               }
        }
 
