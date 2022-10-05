@@ -36,5 +36,5 @@ jobs:
                               server: ftp.cluster023.hosting.ovh.net
                               username: ${{ secrets.FTP_USER }}
                               password: ${{ secrets.FTP_PASSWORD }}
-                              local-dir: ${{ env.PATH_REACT }}/build
+                              local-dir: ${{ env.PATH_REACT }}/build/
                               server-dir: ./api-story-helper/
