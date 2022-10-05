@@ -34,7 +34,7 @@ jobs:
                        uses: actions/upload-artifact@v1
                        with:
                               name: ${{ env.NAME_ARTIFACT_REACT }}
-                              path: ${{ env.PATH_REACT }}
+                              path: ${{ env.PATH_REACT }}/build
 
        DEPLOYREACT:
               runs-on: ubutun-latest
