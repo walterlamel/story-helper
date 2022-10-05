@@ -1,5 +1,5 @@
-name: Deploy on Serve
-run-name: ${{ github.actor }} lance le deploiement
+name: Deploy API
+run-name: ${{ github.actor }} lance le deploiement de l'API
 on:
        push:
               branches:
@@ -8,65 +8,11 @@ on:
 env:
        NODE_VERSION: "16.17.1"
        NAME_ARTIFICAT: "story-helper"
-       NAME_ARTIFACT_REACT: "story-helper-react"
        REMOTE_TARGET: /home/debianftp/www/api-story-helper
        PATH_API: ./api-story-idea
-       PATH_REACT: ./story-helper
        PATH_APP: ./story-helper
 
 jobs:
-       BUILDREACT:
-              runs-on: ubuntu-latest
-              defaults:
-                     run:
-                            working-directory: ${{ env.PATH_REACT }}
-              steps:
-                     - uses: actions/checkout@master
-
-                     - uses: actions/setup-node@master
-                       with:
-                              node-version: ${{ env.NODE_VERSION }}
-                              cache: "npm"
-                              cache-dependency-path: ${{ env.PATH_REACT }}/package-lock.json
-
-                     - run: npm install
-
-                     - run: CI= npm run build
-
-                     - name: artificat react
-                       uses: actions/upload-artifact@v1
-                       with:
-                              name: ${{ env.NAME_ARTIFACT_REACT }}
-                              path: ${{ env.PATH_REACT }}
-
-       DEPLOYREACT:
-              runs-on: ubutun-latest
-              defaults:
-                     run:
-                            working-directory: ${{ env.PATH_REACT }}
-              steps:
-                     - uses: actions/checkout@master
-
-                     - uses: actions/setup-node@master
-                       with:
-                              node-version: ${{ env.NODE_VERSION }}
-                              cache: "npm"
-                              cache-dependency-path: ${{ env.PATH_REACT }}/package-lock.json
-
-                     - name: download artifact
-                       uses: actions/download-artifact@v1
-                       with:
-                              name: ${{ env.NAME_ARTIFACT_REACT }}
-                              path: ./
-
-                     - name: FTP
-                       uses: SamKirkland/FTP-Deploy-Action@4.3.2
-                       with:
-                              server: ftp.cluster023.hosting.ovh.net
-                              username: ${{ secrets.FTP_USER }}
-                              password: ${{ secrets.FTP_PASSWORD }}
-                              server-dir: ./api-story-helper/
-
        BUILD:
               runs-on: ubuntu-latest
               defaults:
