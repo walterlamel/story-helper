@@ -9,6 +9,7 @@
     .popup{
         background-color: $main-fond-light2;
         position: absolute;
+        max-width: 300px;
         padding: 1em;
         right: 1em;
         bottom: 1em;
@@ -21,11 +22,19 @@
             text-transform: uppercase;
             letter-spacing: 0.5em;
             margin-bottom: 1em;
+
+            .contain-close{
+                position: absolute;
+                top: 1em;
+                right: 1em;
+                cursor: pointer;
+            }
         }
 
         form{
             display: flex;
             flex-direction: column;
+            width: 100%;
 
             label
             {
@@ -97,6 +106,16 @@
                 margin: 1em 0;
                 cursor: pointer;
             }
+        }
+
+        .inside-popup{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .response{
+            text-align: right;
         }
     }
 }

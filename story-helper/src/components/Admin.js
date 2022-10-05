@@ -41,6 +41,12 @@ const Admin = () => {
               setLoadApi((prev) => prev + 1);
        }
 
+       function handleAddItem(e) {
+              e.preventDefault();
+              setSelectItem(false);
+              setPopupOpen(true);
+       }
+
        return (
               <div className="App">
                      <div className="container-table">
@@ -127,12 +133,21 @@ const Admin = () => {
                                           ))}
                                    </tbody>
                             </table>
+                            <button
+                                   className="add-btn"
+                                   onClick={(e) => {
+                                          handleAddItem(e);
+                                   }}
+                            >
+                                   Ajouter un item
+                            </button>
                      </div>
 
                      <FormAdd
                             open={PopupOpen}
                             setPopupOpen={setPopupOpen}
                             item={selectItem}
+                            reloading={reloading}
                      />
 
                      <footer>v1.0 - Kevin Soulhol</footer>
@@ -155,7 +170,12 @@ const Ligne = ({ item, reloading, setPopupOpen, selectItem }) => {
        }
 
        return (
-              <motion.tr whileHover={{ color: "black", background: "white" }}>
+              <motion.tr
+                     whileHover={{
+                            color: "black",
+                            background: "white",
+                     }}
+              >
                      <td className="name-column" onClick={(e) => openPopup()}>
                             {item.name}
                      </td>

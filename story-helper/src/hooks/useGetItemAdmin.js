@@ -22,7 +22,7 @@ const useGetItemAdmin = (type, refresh) => {
                      .then((res) => res.json())
                      .then(
                             (resultat) => {
-                                   console.log(resultat);
+                                   //console.log(resultat);
                                    setList(resultat);
                             },
                             (error) => {

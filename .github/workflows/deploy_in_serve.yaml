@@ -97,4 +97,5 @@ jobs:
                               script: |
                                      cd /home/debianftp/www/api-story-helper
                                      npm ci --production
-                                     node server.js
+                                     pm2 start server.js --name api-story-helper
+                                     pm2 save

@@ -116,39 +116,14 @@
         }
     }
 
-    .container-popup-add{
-        align-items: flex-start;
-        overflow-y: scroll;
-    }
 
-    .popup-add form .contain-form{
-        width: 100%;
-    }
-
-    .popup-add{
+    .container-popup .popup{
         max-width: none;
-    }
-
-    .popup-add form{
-        flex-direction: column;
-    }
-
-    .popup-add form .contain-img{
-        order: 2;
-        width: auto;
-
-    }
-
-    .popup-add label{
-        grid-template-columns: none;
-        grid-template-rows: 1em;
-        margin-top: 2em;
-
-        p{
-            padding: 0;
-            margin: 0;
-            line-height: 0;
-        }
+        width: 100%;
+        right: auto;
+        bottom: auto;
+        height: 100%;
+        padding-top: 5em;
     }
 
     

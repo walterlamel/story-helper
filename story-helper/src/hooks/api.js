@@ -16,7 +16,7 @@ export const modifyItem = async (idea, params) => {
               .then((response) => response.json())
               .then(
                      (data) => {
-                            console.log(data);
+                            //console.log(data);
                             if (data.res || data === 1 || data === true) {
                                    return { res: true };
                             } else {

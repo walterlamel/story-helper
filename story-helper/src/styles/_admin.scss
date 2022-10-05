@@ -8,6 +8,7 @@
         display: flex;
         justify-content: start;
         gap: 1.5em;
+        flex-wrap: wrap;
 
         label{
             display: flex;
@@ -54,5 +55,16 @@
                 border: none;
             }
         }
+    }
+
+    .add-btn{
+        margin-top: 2em;
+        padding: 15px;
+        border: none;
+        outline: none;
+        background-color: $main-fond-light2;
+        color: white;
+        font-family: $text-family;
+        text-transform: uppercase;
     }
 }

@@ -193,6 +193,7 @@ $text-family : 'Karma', serif;
 footer{
     font-size: 9px;
     position: absolute;
+    z-index: 2;
     left: 1em;
     bottom: 1em;
 }
@@ -201,4 +202,5 @@ footer{
 @import './boutonAdd.scss',
          './popupAdd.scss',
          './admin.scss',
-         './mobile.scss';
+         './mobile.scss',
+         './loader-ripple.scss';
