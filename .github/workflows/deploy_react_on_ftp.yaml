@@ -15,8 +15,7 @@ jobs:
        BUILD_DEPLOY:
               runs-on: ubuntu-latest
               env:
-                     REACT_APP_SERVE: "production"
-                     REACT_APP_URL_API: "https://api-story-helper.kevin-soulhol.fr/"
+                     REACT_APP_URL_API: ${{ secrets.API }}
               defaults:
                      run:
                             working-directory: ${{ env.PATH_REACT }}

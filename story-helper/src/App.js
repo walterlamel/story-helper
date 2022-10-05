@@ -4,7 +4,6 @@ import Column from "./components/Column.js";
 import "./styles/main.scss";
 import { PLACE, INTRIGUE, PERSO } from "./data/type";
 import FormAdd from "./components/FormAdd.js";
-import env from "react-dotenv";
 
 function App() {
        const [PopupOpen, setPopupOpen] = useState(false);
@@ -36,9 +35,7 @@ function App() {
 
                      <FormAdd open={PopupOpen} setPopupOpen={setPopupOpen} />
 
-                     <footer>
-                            v1.0.09 - Kevin Soulhol - {env.REACT_APP_SERVE}
-                     </footer>
+                     <footer>v1.0.09 - Kevin Soulhol</footer>
 
                      <div className="background"></div>
               </div>
