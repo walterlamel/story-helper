@@ -37,7 +37,7 @@ jobs:
                               path: ${{ env.PATH_REACT }}/build
 
        DEPLOYREACT:
-              runs-on: ubutun-latest
+              runs-on: ubuntu-latest
               needs: BUILDREACT
               defaults:
                      run:
