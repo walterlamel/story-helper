@@ -35,7 +35,10 @@ function App() {
 
                      <FormAdd open={PopupOpen} setPopupOpen={setPopupOpen} />
 
-                     <footer>v1.0 - Kevin Soulhol</footer>
+                     <footer>
+                            v1.0 - Kevin Soulhol -{" "}
+                            {process.env.REACT_APP_URL_API}
+                     </footer>
 
                      <div className="background"></div>
               </div>
