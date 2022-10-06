@@ -96,7 +96,7 @@ jobs:
 
                      - name: Deploy
                        uses: appleboy/ssh-action@master
-                       envs:
+                       env:
                               HOST: ${{ secrets.PORT_API }}
                               PORT: 0.0.0.0
                        with:
