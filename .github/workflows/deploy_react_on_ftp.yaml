@@ -16,6 +16,7 @@ jobs:
               runs-on: ubuntu-latest
               env:
                      REACT_APP_URL_API: ${{ secrets.API }}
+                     REACT_APP_API_USER: ${{ secrets.API_USER }}
               defaults:
                      run:
                             working-directory: ${{ env.PATH_REACT }}

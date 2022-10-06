@@ -37,6 +37,8 @@ jobs:
                      - name: get env
                        run: cp .env.production ./build/.env
 
+                     - run: rm .env.production
+
                      - name: Artifact
                        uses: actions/upload-artifact@v1
                        with:
