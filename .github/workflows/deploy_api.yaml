@@ -11,8 +11,8 @@ env:
        REMOTE_TARGET: /home/debianftp/www/api-story-helper
        PATH_API: ./api-story-idea
        PATH_APP: ./story-helper
-       #PORT: ${{ secrets.PORT_API }}
-       #HOST: 0.0.0.0
+       PORT_FOR_API: ${{ secrets.PORT_API }}
+       HOST_FOR_API: 0.0.0.0
        #APP_KEY: 7ZXfGelNI84bhINEYhyj7FRkhRJ0iCh9
        DRIVE_DISK: local
        DB_CONNECTION: mysql
@@ -101,6 +101,7 @@ jobs:
                               username: ${{ secrets.SSH_USER }}
                               port: ${{ secrets.SSH_PORT }}
                               key: ${{ secrets.SSH_PRIVATE_KEY }}
+                              envs: HOST_FOR_API,PORT_FOR_API
                               script_stop: true
                               script: |
                                      pm2 stop api-story-helper
