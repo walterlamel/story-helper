@@ -11,9 +11,9 @@ env:
        REMOTE_TARGET: /home/debianftp/www/api-story-helper
        PATH_API: ./api-story-idea
        PATH_APP: ./story-helper
-       #PORT: ${{ secrets.PORT_API }}
-       #HOST: 0.0.0.0
-       #NODE_ENV: production
+       PORT: ${{ secrets.PORT_API }}
+       HOST: 0.0.0.0
+       NODE_ENV: production
        #APP_KEY: 7ZXfGelNI84bhINEYhyj7FRkhRJ0iCh9
        DRIVE_DISK: local
        DB_CONNECTION: mysql
@@ -79,9 +79,9 @@ jobs:
                               SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
                               ARGS: "-rltgoDzvO --delete"
                               SOURCE: build/
-                              REMOTE_HOST: ${{ secrets.HOST }}
-                              REMOTE_USER: ${{ secrets.USER }}
-                              REMOTE_PORT: ${{ secrets.PORT }}
+                              REMOTE_HOST: ${{ secrets.SSH_HOST }}
+                              REMOTE_USER: ${{ secrets.SSH_USER }}
+                              REMOTE_PORT: ${{ secrets.SSH_PORT }}
                               TARGET: ${{ env.REMOTE_TARGET }}
 
        SSH:
@@ -98,9 +98,9 @@ jobs:
                      - name: Deploy
                        uses: appleboy/ssh-action@master
                        with:
-                              host: ${{ secrets.HOST }}
-                              username: ${{ secrets.USER }}
-                              port: ${{ secrets.PORT }}
+                              host: ${{ secrets.SSH_HOST }}
+                              username: ${{ secrets.SSH_USER }}
+                              port: ${{ secrets.SSH_PORT }}
                               key: ${{ secrets.SSH_PRIVATE_KEY }}
                               script_stop: true
                               script: |
