@@ -97,8 +97,8 @@ jobs:
                      - name: Deploy
                        uses: appleboy/ssh-action@master
                        env:
-                              HOST: ${{ secrets.PORT_API }}
-                              PORT: 0.0.0.0
+                              HOST: 0.0.0.0
+                              PORT: ${{ secrets.PORT_API }}
                        with:
                               host: ${{ secrets.SSH_HOST }}
                               username: ${{ secrets.SSH_USER }}
