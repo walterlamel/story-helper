@@ -12,8 +12,7 @@ env:
        PATH_API: ./api-story-idea
        PATH_APP: ./story-helper
        PORT: ${{ secrets.PORT_API }}
-       HOST: 0.0.0.0
-       #NODE_ENV: production
+       #HOST: 0.0.0.0
        #APP_KEY: 7ZXfGelNI84bhINEYhyj7FRkhRJ0iCh9
        DRIVE_DISK: local
        DB_CONNECTION: mysql
