@@ -11,8 +11,8 @@ env:
        REMOTE_TARGET: /home/debianftp/www/api-story-helper
        PATH_API: ./api-story-idea
        PATH_APP: ./story-helper
-       #PORT_FOR_API: ${{ secrets.PORT_API }}
-       HOST: 1.1.1.1
+       PORT: ${{ secrets.PORT_API }}
+       HOST: 0.0.0.0
        APP_KEY: ${{ secrets.APP_KEY }}
        DRIVE_DISK: local
        DB_CONNECTION: mysql
@@ -97,8 +97,8 @@ jobs:
                      - name: Deploy
                        uses: appleboy/ssh-action@master
                        env:
-                              HOST: 0.0.0.0
-                              PORT: ${{ secrets.PORT_API }}
+                              HOST: ${{ secrets.SSH_HOST }}
+                              PORT: ${{ secrets.SSH_PORT }}
                        with:
                               host: ${{ secrets.SSH_HOST }}
                               username: ${{ secrets.SSH_USER }}
