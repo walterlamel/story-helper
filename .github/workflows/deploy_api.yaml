@@ -11,8 +11,7 @@ env:
        REMOTE_TARGET: /home/debianftp/www/api-story-helper
        PATH_API: ./api-story-idea
        PATH_APP: ./story-helper
-
-       PORT: ${{ secrets.PORT_API }}
+       #PORT: ${{ secrets.PORT_API }}
        #HOST: 0.0.0.0
        #NODE_ENV: production
        #APP_KEY: 7ZXfGelNI84bhINEYhyj7FRkhRJ0iCh9
@@ -20,7 +19,7 @@ env:
        DB_CONNECTION: mysql
        MYSQL_HOST: localhost
        MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
-       MYSQL_USER=: ${{ secrets.MYSQL_USER }}
+       MYSQL_USER: ${{ secrets.MYSQL_USER }}
        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
        MYSQL_DB_NAME: storyhelper
 
@@ -105,4 +104,8 @@ jobs:
                               key: ${{ secrets.SSH_PRIVATE_KEY }}
                               script_stop: true
                               script: |
-                                     echo "coucou"
+                                     pm2 stop api-story-helper
+                                     cd /home/debianftp/www/api-story-helper
+                                     npm ci --production
+                                     pm2 start server.js --name api-story-helper
+                                     pm2 save
