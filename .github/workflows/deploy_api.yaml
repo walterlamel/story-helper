@@ -105,8 +105,4 @@ jobs:
                               key: ${{ secrets.SSH_PRIVATE_KEY }}
                               script_stop: true
                               script: |
-                                     pm2 stop api-story-helper
-                                     cd /home/debianftp/www/api-story-helper
-                                     npm ci --production
-                                     pm2 start server.js --name api-story-helper
-                                     pm2 save
+                                     echo "coucou"
