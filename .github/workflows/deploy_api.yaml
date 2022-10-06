@@ -11,7 +11,7 @@ env:
        REMOTE_TARGET: /home/debianftp/www/api-story-helper
        PATH_API: ./api-story-idea
        PATH_APP: ./story-helper
-       PORT: ${{ secrets.PORT_API }}
+       #PORT: ${{ secrets.PORT_API }}
        #HOST: 0.0.0.0
        #APP_KEY: 7ZXfGelNI84bhINEYhyj7FRkhRJ0iCh9
        DRIVE_DISK: local
