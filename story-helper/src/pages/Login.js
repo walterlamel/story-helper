@@ -24,7 +24,7 @@ const Login = () => {
                      .then((res) => res.json())
                      .then(
                             (data) => {
-                                   console.log(data);
+                                   //console.log(data);
                                    if (data.code) {
                                           setErrorMessage(data.message);
                                    } else if (data.id) {

@@ -12,6 +12,18 @@ env:
        PATH_API: ./api-story-idea
        PATH_APP: ./story-helper
 
+       PORT: ${{ secrets.PORT_API }}
+       #HOST: 0.0.0.0
+       #NODE_ENV: production
+       #APP_KEY: 7ZXfGelNI84bhINEYhyj7FRkhRJ0iCh9
+       DRIVE_DISK: local
+       DB_CONNECTION: mysql
+       MYSQL_HOST: localhost
+       MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
+       MYSQL_USER=: ${{ secrets.MYSQL_USER }}
+       MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+       MYSQL_DB_NAME: storyhelper
+
 jobs:
        BUILD:
               runs-on: ubuntu-latest
@@ -34,10 +46,8 @@ jobs:
                        run: node ace build --production
                        working-directory: ${{ env.PATH_API }}
 
-                     - name: get env
-                       run: cp .env.production ./build/.env
-
-                     - run: rm .env.production
+                     #- name: get env
+                     #  run: cp .env.production ./build/.env
 
                      - name: Artifact
                        uses: actions/upload-artifact@v1
