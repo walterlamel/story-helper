@@ -94,10 +94,22 @@ jobs:
                        with:
                               node-version: ${{ env.NODE_VERSION }}
 
-                     - name: test
-                       run: |
-                              ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST}} -p ${{secrets.SSH_PORT}}
-                              ls -la
+                     - name: SSH Command
+                       uses: D3rHase/ssh-command-action@v0.2.1
+                       with:
+                              HOST: ${{ secrets.SSH_HOST }}
+                              PORT: ${{ secrets.SSH_PORT }}
+                              USER: ${{ secrets.SSH_USER }}
+                              PRIVATE_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+                              COMMAND: |
+                                     pm2 stop api-story-helper
+                                     cd /home/debianftp/www/api-story-helper
+                                     export HOST=0.0.0.0
+                                     export PORT=${{ secrets.PORT_API }}
+                                     export APP_KEY=${{ secrets.APP_KEY }}
+                                     npm ci --production
+                                     pm2 start server.js --name api-story-helper
+                                     pm2 save
 
                      - name: Deploy
                        uses: appleboy/ssh-action@master
