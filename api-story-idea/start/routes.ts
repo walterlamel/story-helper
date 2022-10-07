@@ -22,19 +22,6 @@ import Route from '@ioc:Adonis/Core/Route';
 import Item from 'App/Models/Item';
 //import Logger from '@ioc:Adonis/Core/Logger';
 
-Route.get('/', 'ItemController.index'); //affiche 3 res random
-Route.get('/type', 'TypeController.index'); //affiche les types existants
-Route.get('/all/', 'ItemController.getall'); //affiche tous les resultats
-Route.get('/all/:type', 'ItemController.getall'); //affiche tous les resultats selon le type
-Route.post('/create', 'ItemController.create'); //creer un nouvel item
-Route.get('/:id', 'ItemController.get').where('id', /^[0-9]+$/); // affiche le resultat selon l'id
-Route.put('/:id', 'ItemController.update').where('id', /^[0-9]+$/); // modifie le resultat selon l'id
-Route.delete('/:id', 'ItemController.delete').where('id', /^[0-9]+$/); // supprime le resultat selon l'id
-Route.get('/:type', 'ItemController.index'); //affiche un resultat random selon le type
-
-
-
-
 Route.get('/special', async () => {
   await Item.createMany([
     {
@@ -303,3 +290,19 @@ Route.get('/special', async () => {
     }
   ])
 })
+
+
+
+Route.get('/', 'ItemController.index'); //affiche 3 res random
+Route.get('/type', 'TypeController.index'); //affiche les types existants
+Route.get('/all/', 'ItemController.getall'); //affiche tous les resultats
+Route.get('/all/:type', 'ItemController.getall'); //affiche tous les resultats selon le type
+Route.post('/create', 'ItemController.create'); //creer un nouvel item
+Route.get('/:id', 'ItemController.get').where('id', /^[0-9]+$/); // affiche le resultat selon l'id
+Route.put('/:id', 'ItemController.update').where('id', /^[0-9]+$/); // modifie le resultat selon l'id
+Route.delete('/:id', 'ItemController.delete').where('id', /^[0-9]+$/); // supprime le resultat selon l'id
+Route.get('/:type', 'ItemController.index'); //affiche un resultat random selon le type
+
+
+
+
