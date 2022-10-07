@@ -111,22 +111,22 @@ jobs:
                                      pm2 start server.js --name api-story-helper
                                      pm2 save
 
-                     - name: Deploy
-                       uses: appleboy/ssh-action@master
-                       with:
-                              host: ${{ secrets.SSH_HOST }}
-                              username: ${{ secrets.SSH_USER }}
-                              port: ${{ secrets.SSH_PORT }}
-                              key: ${{ secrets.SSH_PRIVATE_KEY }}
-                              envs: HOST,PORT,APP_KEY
-                              script_stop: true
-                              all_envs: true
-                              script: |
-                                     pm2 stop api-story-helper
-                                     cd /home/debianftp/www/api-story-helper
-                                     export HOST=0.0.0.0
-                                     export PORT=${{ secrets.PORT_API }}
-                                     export APP_KEY=${{ secrets.APP_KEY }}
-                                     npm ci --production
-                                     pm2 start server.js --name api-story-helper
-                                     pm2 save
+                     #- name: Deploy
+                     #  uses: appleboy/ssh-action@master
+                     #  with:
+                     #         host: ${{ secrets.SSH_HOST }}
+                     #         username: ${{ secrets.SSH_USER }}
+                     #         port: ${{ secrets.SSH_PORT }}
+                     #         key: ${{ secrets.SSH_PRIVATE_KEY }}
+                     #         envs: HOST,PORT,APP_KEY
+                     #         script_stop: true
+                     #         all_envs: true
+                     #         script: |
+                     #                pm2 stop api-story-helper
+                     #                cd /home/debianftp/www/api-story-helper
+                     #                export HOST=0.0.0.0
+                     #                export PORT=${{ secrets.PORT_API }}
+                     #                export APP_KEY=${{ secrets.APP_KEY }}
+                     #                npm ci --production
+                     #                pm2 start server.js --name api-story-helper
+                     #                pm2 save
