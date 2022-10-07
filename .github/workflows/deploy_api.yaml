@@ -97,17 +97,20 @@ jobs:
                      - name: Deploy
                        uses: appleboy/ssh-action@master
                        env:
-                              HOST: ${{ secrets.SSH_HOST }}
-                              PORT: ${{ secrets.SSH_PORT }}
+                              #HOST: ${{ secrets.SSH_HOST }}
+                              HOST: 0.0.0.0
+                              PORT: ${{ secrets.PORT_API }}
+                              APP_KEY: ${{ secrets.APP_KEY }}
                        with:
                               host: ${{ secrets.SSH_HOST }}
                               username: ${{ secrets.SSH_USER }}
                               port: ${{ secrets.SSH_PORT }}
                               key: ${{ secrets.SSH_PRIVATE_KEY }}
-                              #envs: HOST,PORT
+                              envs: HOST,PORT, APP_KEY
                               script_stop: true
                               all_envs: true
                               script: |
+                                     printenv
                                      pm2 stop api-story-helper
                                      cd /home/debianftp/www/api-story-helper
                                      npm ci --production
