@@ -105,8 +105,6 @@ jobs:
                                      pm2 stop api-story-helper
                                      cd /home/debianftp/www/api-story-helper
                                      export HOST=0.0.0.0
-                                     export PORT=${{ secrets.PORT_API }}
-                                     export APP_KEY=${{ secrets.APP_KEY }}
                                      npm ci --production
                                      pm2 start server.js --name api-story-helper
                                      pm2 save
