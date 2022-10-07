@@ -104,8 +104,9 @@ jobs:
                               username: ${{ secrets.SSH_USER }}
                               port: ${{ secrets.SSH_PORT }}
                               key: ${{ secrets.SSH_PRIVATE_KEY }}
-                              envs: HOST,PORT
+                              #envs: HOST,PORT
                               script_stop: true
+                              all_envs: true
                               script: |
                                      pm2 stop api-story-helper
                                      cd /home/debianftp/www/api-story-helper
