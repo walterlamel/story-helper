@@ -11,9 +11,9 @@ env:
        REMOTE_TARGET: /home/debianftp/www/api-story-helper
        PATH_API: ./api-story-idea
        PATH_APP: ./story-helper
-       PORT: ${{ secrets.PORT_API }}
-       HOST: 0.0.0.0
-       APP_KEY: ${{ secrets.APP_KEY }}
+       #PORT: ${{ secrets.PORT_API }}
+       #HOST: 0.0.0.0
+       #APP_KEY: ${{ secrets.APP_KEY }}
        DRIVE_DISK: local
        DB_CONNECTION: mysql
        MYSQL_HOST: localhost
@@ -94,40 +94,26 @@ jobs:
                        with:
                               node-version: ${{ env.NODE_VERSION }}
 
-                     - name: SSH Command
-                       uses: D3rHase/ssh-command-action@v0.2.1
+                     - name: Deploy
+                       uses: appleboy/ssh-action@master
                        env:
-                              PORT_INSIDE: ${{ secrets.PORT_API}}
+                              PORT_INSIDE: ${{ secrets.PORT_API }}
+                              HOST_INSIDE: 0.0.0.0
+                              APP_KEY: ${{ secrets.APP_KEY }}
                        with:
-                              HOST: ${{ secrets.SSH_HOST }}
-                              PORT: ${{ secrets.SSH_PORT }}
-                              USER: ${{ secrets.SSH_USER }}
-                              PRIVATE_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-                              COMMAND: |
+                              host: ${{ secrets.SSH_HOST }}
+                              username: ${{ secrets.SSH_USER }}
+                              port: ${{ secrets.SSH_PORT }}
+                              key: ${{ secrets.SSH_PRIVATE_KEY }}
+                              envs: PORT_INSIDE,HOST_INSIDE,APP_KEY
+                              script_stop: true
+                              all_envs: true
+                              script: |
                                      pm2 stop api-story-helper
                                      cd /home/debianftp/www/api-story-helper
                                      export HOST=0.0.0.0
                                      export PORT=$PORT_INSIDE
+                                     export APP_KEY=$APP_KEY
                                      npm ci --production
                                      pm2 start server.js --name api-story-helper
                                      pm2 save
-
-                     #- name: Deploy
-                     #  uses: appleboy/ssh-action@master
-                     #  with:
-                     #         host: ${{ secrets.SSH_HOST }}
-                     #         username: ${{ secrets.SSH_USER }}
-                     #         port: ${{ secrets.SSH_PORT }}
-                     #         key: ${{ secrets.SSH_PRIVATE_KEY }}
-                     #         envs: HOST,PORT,APP_KEY
-                     #         script_stop: true
-                     #         all_envs: true
-                     #         script: |
-                     #                pm2 stop api-story-helper
-                     #                cd /home/debianftp/www/api-story-helper
-                     #                export HOST=0.0.0.0
-                     #                export PORT=${{ secrets.PORT_API }}
-                     #                export APP_KEY=${{ secrets.APP_KEY }}
-                     #                npm ci --production
-                     #                pm2 start server.js --name api-story-helper
-                     #                pm2 save
