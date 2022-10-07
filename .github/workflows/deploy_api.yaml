@@ -112,6 +112,8 @@ jobs:
                                      pm2 stop api-story-helper
                                      cd /home/debianftp/www/api-story-helper
                                      npm ci --production
+                                     npm i pino-pretty
+
                                      echo PORT=${{ secrets.PORT_API }} > .env
                                      echo HOST=0.0.0.0 >> .env
                                      echo NODE_ENV=development >> .env
@@ -123,5 +125,6 @@ jobs:
                                      echo MYSQL_USER=${{ env.MYSQL_USER }} >> .env
                                      echo MYSQL_PASSWORD=${{ env.MYSQL_PASSWORD }} >> .env
                                      echo MYSQL_DB_NAME=${{ env.MYSQL_DB_NAME }} >> .env
+
                                      pm2 start server.js --name api-story-helper
                                      pm2 save
