@@ -111,9 +111,17 @@ jobs:
                               script: |
                                      pm2 stop api-story-helper
                                      cd /home/debianftp/www/api-story-helper
-                                     export HOST=0.0.0.0
-                                     export PORT=33333
-                                     export APP_KEY=$APP_KEY
                                      npm ci --production
+                                     echo PORT=$PORT_INSIDE > .env
+                                     echo HOST=0.0.0.0 >> .env
+                                     echo NODE_ENV=development >> .env
+                                     echo APP_KEY=7ZXfGelNI84bhINEYhyj7FRkhRJ0iCh9 >> .env
+                                     echo DRIVE_DISK=local >> .env
+                                     echo DB_CONNECTION=mysql >> .env
+                                     echo MYSQL_HOST=${{ env.MYSQL_HOST }} >> .env
+                                     echo MYSQL_PORT=${{ env.MYSQL_PORT }} >> .env
+                                     echo MYSQL_USER=${{ env.MYSQL_USER }} >> .env
+                                     echo MYSQL_PASSWORD=${{ env.MYSQL_PASSWORD }} >> .env
+                                     echo MYSQL_DB_NAME=${{ env.MYSQL_DB_NAME }} >> .env
                                      pm2 start server.js --name api-story-helper
                                      pm2 save
