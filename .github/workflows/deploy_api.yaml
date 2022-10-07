@@ -11,9 +11,9 @@ env:
        REMOTE_TARGET: /home/debianftp/www/api-story-helper
        PATH_API: ./api-story-idea
        PATH_APP: ./story-helper
-       PORT: ${{ secrets.PORT_API }}
-       HOST: 0.0.0.0
-       APP_KEY: ${{ secrets.APP_KEY }}
+       #PORT: ${{ secrets.PORT_API }}
+       #HOST: 0.0.0.0
+       #APP_KEY: ${{ secrets.APP_KEY }}
        DRIVE_DISK: local
        DB_CONNECTION: mysql
        MYSQL_HOST: localhost
@@ -105,9 +105,11 @@ jobs:
                               script_stop: true
                               all_envs: true
                               script: |
-                                     printenv
                                      pm2 stop api-story-helper
                                      cd /home/debianftp/www/api-story-helper
                                      npm ci --production
+                                     HOST=0.0.0.0
+                                     PORT=${{ secrets.PORT_API }}
+                                     APP_KEY=${{ secrets.APP_KEY }}
                                      pm2 start server.js --name api-story-helper
                                      pm2 save
