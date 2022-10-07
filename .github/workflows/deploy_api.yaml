@@ -100,12 +100,12 @@ jobs:
                               PORT_INSIDE: ${{ secrets.PORT_API }}
                               HOST_INSIDE: 0.0.0.0
                               APP_KEY: ${{ secrets.APP_KEY }}
+                              NODE_ENV: production
                        with:
                               host: ${{ secrets.SSH_HOST }}
                               username: ${{ secrets.SSH_USER }}
                               port: ${{ secrets.SSH_PORT }}
                               key: ${{ secrets.SSH_PRIVATE_KEY }}
-                              envs: PORT_INSIDE,HOST_INSIDE,APP_KEY
                               script_stop: true
                               all_envs: true
                               script: |

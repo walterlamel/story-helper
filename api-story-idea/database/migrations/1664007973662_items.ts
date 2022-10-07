@@ -21,7 +21,7 @@ export default class extends BaseSchema {
 
       
       table.string('name').notNullable()
-      table.text('desc').notNullable()
+      table.text('desc').notNullable().unique()
       table.string('img')
       table.boolean('is_active').defaultTo(false)
       
