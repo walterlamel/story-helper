@@ -28,8 +28,8 @@ function App() {
 
                      <div className="container-ideas">
                             <Column type={PLACE} />
-                            <Column type={PERSO} />
                             <Column type={INTRIGUE} />
+                            <Column type={PERSO} />
                      </div>
 
                      <BoutonAdd setPopupOpen={setPopupOpen} />

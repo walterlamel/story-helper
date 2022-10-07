@@ -19,6 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route';
+import Item from 'App/Models/Item';
 //import Logger from '@ioc:Adonis/Core/Logger';
 
 Route.get('/', 'ItemController.index'); //affiche 3 res random
@@ -31,152 +32,16 @@ Route.put('/:id', 'ItemController.update').where('id', /^[0-9]+$/); // modifie l
 Route.delete('/:id', 'ItemController.delete').where('id', /^[0-9]+$/); // supprime le resultat selon l'id
 Route.get('/:type', 'ItemController.index'); //affiche un resultat random selon le type
 
-/*
-// rend un lieu, un perso et une intrigue aléatoire. Si place est indiqué en url, s'y adapte
-Route.get('/', async ({request}) => {
-
-  const queryData = request.qs();
-  const choosenPlace = queryData.place;
-  const allIntrigue = queryData.all;
-
-  let place = await getRandomPlace(choosenPlace);
-  let perso = await getRandomPerso();
-  let intrigue;
-  //Si all=no : alors l'intrigue est sélectionnée selon la location
-  if(allIntrigue === "no"){
-    intrigue = await getRandomIntrigue(choosenPlace ?? place.name);
-  } else{
-    intrigue = await getRandomIntrigue();
-  }
-  
-
-  const res = {
-    place : place,
-    perso : perso,
-    intrigue : intrigue
-  }
-
-  return res;
-})
 
 
-//Intrigues
-Route.get('/intrigue', 'IntrigueController.index');
-Route.get('/intrigue/all', 'IntrigueController.showAll');
-Route.get('/intrigue/:id', 'IntrigueController.show');
-Route.put('/intrigue/:id', 'IntrigueController.edit');
-Route.delete('/intrigue/:id', 'IntrigueController.delete');
 
-
-//Personnages
-Route.get('/personnage', 'PersonnageController.index');
-Route.get('/personnage/:id', 'PersonnageController.show');
-Route.put('/personnage/:id', 'PersonnageController.edit');
-Route.delete('/personnage/:id', 'PersonnageController.delete');
-
-
-//Place
-Route.get('/place', 'PlaceController.index');
-Route.get('/place/all', 'PlaceController.showAll');
-Route.get('/place/:id', 'PlaceController.show');
-Route.put('/place/:id', 'PlaceController.edit');
-Route.delete('/place/:id', 'PlaceController.delete');
-
-
-Route.post('/create', async ({request}:HttpContext) => {
-  const i = request.all();
-  const type = i.type;
-
-  if(!i.img){
-    i.img = "";
-  }
-
-  //verification des données
-  const createItemSchema = schema.create({
-    name : schema.string([
-      rules.trim()
-    ]),
-    desc : schema.string([
-      rules.trim()
-    ]),
-    img : schema.string.optional()
-  });
-
-  const item = await request.validate({
-    schema : createItemSchema,
-    messages: {
-      'required' : 'Vous devez indiquer ce champs',
-      'unique' : 'Ce nom est déjà utilisé. Veuillez en trouver un autre.'
+Route.get('/special', () => {
+  Item.createMany([
+    {
+      name: "",
+      typeId: 1,
+      desc: "",
+      is_active: true
     },
-    reporter: validator.reporters.jsonapi,
-  })
-
-
-
-  delete i.type;
-  let newadd;
-
-  switch(type){
-    case "intrigue":
-      if(await (await Intrigue.query().where('name', i.name)).length){
-        return { res : false, text : "Ce nom existe déjà", input : ["name"]}
-      }
-
-      await Intrigue.create(item);
-      newadd = await Intrigue.query().where('name', i.name);
-      break;
-    case "personnage":
-      if(await (await Personnage.query().where('name', i.name)).length){
-        return { res : false, text : "Ce nom existe déjà", input : ["name"]}
-      }
-      await Personnage.create(item);
-      newadd = await Personnage.query().where('name', i.name);
-      break;
-    case "place":
-      if(await (await Place.query().where('name', i.name)).length){
-        return { res : false, text : "Ce nom existe déjà", input : ["name"]}
-      }
-      await Place.create(item);
-      newadd = await Place.query().where('name', i.name);
-      break;
-  }
-  
-  return newadd.length;
-
-});
-
-//recupère tous les éléments non actif
-Route.get('/admin', async ({request}:HttpContext) => {
-  const  {type} = request.qs();
-
-  const query = await Database.query();
-
-  if(type){
-    query.from(type);
-  }
-
-
-  let intrigues = await Database.from('intrigues').select('*').where("is_active", false);
-  let places = await Database.from('places').select('*').where("is_active", false);
-  let personnages = await Database.from('personnages').select('*').where("is_active", false);
-  var res = Object.assign({}, intrigues, places, personnages);
-
-  return res;
+  ])
 })
-
-//recupère tous les élement non actif selon le type
-Route.get('/admin/:type', async ({params}) => {
-  
-    switch(params.type){
-      case "intrigue":
-        return await Database.from('intrigues').select('*').orderBy("is_active").orderBy('name');;
-        
-      case "personnage":
-        return await await Database.from('personnages').select('*').orderBy("is_active").orderBy('name');;
-        
-      case "place":
-        return await Database.from('places').select('*').orderBy("is_active").orderBy('name');
-    }
-
-})
-*/
