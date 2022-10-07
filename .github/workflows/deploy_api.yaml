@@ -94,6 +94,11 @@ jobs:
                        with:
                               node-version: ${{ env.NODE_VERSION }}
 
+                     - name: test
+                       run: |
+                              ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST}} -p ${{secrets.SSH_PORT}}
+                              ls -la
+
                      - name: Deploy
                        uses: appleboy/ssh-action@master
                        with:
