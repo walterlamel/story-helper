@@ -19,16 +19,18 @@ $text-family : 'Karma', serif;
 }
 
 
+
 .App{
     background-color: $main-fond;
     font-family: $text-family;
     font-size: $text-size-moyenne;
     color: white;
     text-align: center;
-    min-height: 100vh;
+    height: 100%;
     position: relative;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
 
     .background{
@@ -52,22 +54,22 @@ $text-family : 'Karma', serif;
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    margin: 0 $space;
     gap: $space;
-    margin-top: 10%;
     position: relative;
     z-index: 2;
+    margin: 4em $space 5em $space;
+    height: 650px;
 
     .column{
         position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: baseline;
         align-items: center;
         flex-grow: 3;
         width: 100%;
         min-width: 313px;
-        height: 79%;
+        height: 100%;
 
         .header{
             display: flex;
@@ -90,6 +92,7 @@ $text-family : 'Karma', serif;
 
         .container-element{
             width: 100%;
+            height: 100%;
         }
 
         h3{
@@ -166,12 +169,14 @@ $text-family : 'Karma', serif;
 
 
 .titles{
-    position: absolute;
+    position: relative;
     left: 1em;
     bottom: 1em;
     display: flex;
     align-items: center;
     justify-content: stretch;
+    align-self: flex-start;
+    padding: 2em 1em;
 
     img{
         max-width: 193px;
