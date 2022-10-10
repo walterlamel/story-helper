@@ -22,6 +22,7 @@ import Route from '@ioc:Adonis/Core/Route';
 import Item from 'App/Models/Item';
 //import Logger from '@ioc:Adonis/Core/Logger';
 
+/*
 Route.get('/special', async () => {
   await Item.createMany([
     {
@@ -290,6 +291,7 @@ Route.get('/special', async () => {
     }
   ])
 })
+*/
 
 
 
